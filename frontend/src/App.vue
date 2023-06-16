@@ -1,28 +1,37 @@
 <template>
-  <!-- <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header> -->
+  <CoreNavbar />
+  <CoreHeader />
+  <CoreSecondNavbar />
 
   <RouterView />
+
+  <CoreFooter />
+
+  <div class="scroll-to-top" @click="scrollToTop()" ref="scrollToTopBtn">
+    <i class="fa-solid fa-angle-up"></i>
+  </div>
 </template>
 
 <script lang="ts">
 import { computed } from 'vue';
-import { RouterLink, RouterView } from 'vue-router';
+
+import CoreNavbar from '@/components/CoreNavbar.vue';
+import CoreFooter from '@/components/CoreFooter.vue';
+import CoreHeader from './components/CoreHeader.vue';
+import CoreSecondNavbar from './components/CoreSecondNavbar.vue';
+
 
 export default {
+  components: {
+    CoreNavbar,
+    CoreFooter,
+    CoreHeader,
+    CoreSecondNavbar,
+  },
   mounted() {
     this.setScreenSize();
     window.addEventListener('resize', this.setScreenSize);
+    window.addEventListener('scroll', this.handleScroll);
   },
   data() {
     return {
@@ -42,9 +51,54 @@ export default {
         .getPropertyValue('content')
         .replace(/"/g, '');
     },
+    // Show/Hide the "scroll to top" button
+    handleScroll() {
+      const minScroll = 280;
+      const btn = this.$refs.scrollToTopBtn;
+      if (document.body.scrollTop > minScroll || document.documentElement.scrollTop > minScroll) {
+        btn.classList.add('show');
+      } else {
+        btn.classList.remove('show');
+      }
+    },
+    // Scroll to top
+    scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    },
+
   },
 };
 </script>
 
 <style lang="scss">
+.scroll-to-top {
+  background-color: rgba(0, 0, 0, 0.4);
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  color: #ffffff;
+  font-size: 15px;
+  border-radius: 3px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  line-height: 40px;
+  width: 40px;
+  text-align: center;
+  z-index: 10;
+  transition: opacity 300ms ease-in-out;
+
+  opacity: 0;
+  visibility: hidden;
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+  }
+}
 </style>

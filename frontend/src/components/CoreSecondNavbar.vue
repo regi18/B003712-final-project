@@ -1,0 +1,118 @@
+<template>
+  <nav class="second-nav">
+    <div class="second-nav-wrapper">
+      <div class="mobile-second-nav">
+        <span @click="isMobileMenuOpen = !isMobileMenuOpen">
+          <i class="fas hamburger" :class="isMobileMenuOpen ? 'fa-xmark' : 'fa-bars'"></i>
+          Departments
+        </span>
+      </div>
+
+      <ul class="secondary-menu" :class="{ 'is-open-mobile': isMobileMenuOpen }">
+        <li class="menu-item" v-for="e of menuItems" :key="e.url">
+          <router-link :to="e.url">{{ e.title }}</router-link>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</template>
+
+<script lang="ts">
+import { RouterLink } from 'vue-router';
+
+export default {
+  name: 'core-second-navbar',
+  components: {
+    RouterLink,
+  },
+  data() {
+    return {
+      isMobileMenuOpen: false,
+      menuItems: [
+        { url: '/todo', title: 'The Fortnightly Rant' },
+        { url: '/todo', title: 'The Alleged News®' },
+        { url: '/todo', title: 'Mash Notes, Hate Mail & Other Correspondence' },
+        { url: '/todo', title: 'The Northcountry Chronicle' },
+        { url: '/todo', title: 'Page 8' },
+      ]
+    };
+  },
+};
+</script>
+
+<style scoped lang="scss">
+.second-nav {
+  width: 100%;
+
+  .second-nav-wrapper {
+    display: flex;
+    justify-content: center;
+    background: #222222;
+    color: #fff;
+
+    ul.secondary-menu {
+      list-style: none;
+      margin: 0;
+      padding-left: 0;
+      font-size: 1em;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      li.menu-item {
+        a {
+          font-family: 'Playfair Display', serif;
+          transition: 100ms ease-in-out;
+          display: block;
+          font-weight: 400;
+          font-size: 13px;
+          padding-left: 18px;
+          padding-right: 18px;
+          line-height: 45px;
+          white-space: nowrap;
+
+          &:hover {
+            color: #ffffff;
+            background-color: #303030;
+          }
+        }
+      }
+    }
+  }
+
+  .mobile-second-nav {
+    display: none;
+  }
+
+  @include mobile {
+    line-height: 45px;
+
+    .second-nav-wrapper {
+      flex-direction: column;
+
+      .menu-item a {
+        padding: 0 18px;
+      }
+    }
+
+    .mobile-second-nav {
+      display: block;
+      font-size: 13px;
+      padding: 0 18px;
+      text-align: center;
+
+      i.hamburger {
+        margin-right: 0.4em;
+      }
+    }
+
+    .secondary-menu {
+      &:not(.is-open-mobile) {
+        display: none !important;
+      }
+
+      flex-direction: column;
+    }
+  }
+}
+</style>

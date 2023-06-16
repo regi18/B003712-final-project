@@ -22,3 +22,16 @@ The home page is divided as follows (below only dynamic content):
 ## New functionalities
  - Add a login page for users. Users might be able to access exclusive content.
  - Also add an admin page where admins can add/edit/delete papers, articles, ...
+
+
+---
+
+# Ideas
+
+## 1
+Could save the navbar elements to the db and let the user add/remove pages in the admin panel.
+SQL table example:
+|title|url|parent|
+|-|-|-|
+
+Where url is the primary key, and parent can reference a url to create sub-menus

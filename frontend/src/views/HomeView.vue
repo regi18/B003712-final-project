@@ -81,11 +81,6 @@ export default {
     CoreLatestPaperSection,
     CoreDownloadLatestPaperSection,
   },
-  data() {
-    return {
-      articles: [{ id: 0, title: '', description: '', imgUrl: '', p: '' }],
-    };
-  },
   created() {
     // // Fetch articles (only last 4)
     // fetch('./assets/articles.json')

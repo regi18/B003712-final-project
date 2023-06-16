@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     // Style for a carousel card (x translation)
-    getStyle(i) {
+    getStyle(i: any) {
       const p = (i + this.activeCarouselIndex * -this.carouselCardsPerSlide) * 100;
 
       return `transform: translateX(calc(${p}% + ${this.swipeOffset}px));`;
@@ -121,10 +121,13 @@ export default {
     },
   },
   watch: {
-    carouselCards() {
-      this.$nextTick(() => {
-        this.initSwipe();
-      });
+    carouselCards: {
+      handler() {
+        this.$nextTick(() => {
+          this.initSwipe();
+        });
+      },
+      immediate: true
     },
   },
 };

@@ -5,11 +5,11 @@
 
     <div class="download-wrapper">
       <h2>
-        <a href="">Volume 267, No. 14; March 24, 2023</a>
+        <a href="">Volume {{ volumeNo }}, No. {{ issueNo }}; {{ date }}</a>
       </h2>
       <div class="content">
-        <p><strong>March 24, 2023 —</strong> To download this issue of our paper, just click on the image at right.</p>
-        <img src="./assets/img/267_14.png" alt="Gazette Front Page" />
+        <p><strong>{{ date }} —</strong> To download this issue of our paper, just click on the image at right.</p>
+        <img src="@/assets/img/front-page.png" alt="Gazette Front Page" @click="downloadPaper()"/>
       </div>
     </div>
   </section>
@@ -18,6 +18,18 @@
 <script lang="ts">
 export default {
   name: 'core-download-latest-paper-section',
+  data() {
+    return {
+      date: 'March TODO, TODO',
+      volumeNo: 777,
+      issueNo: 33,
+    };
+  },
+  methods: {
+    downloadPaper() {
+      window.open('TODO', '_blank');
+    },
+  }
 };
 </script>
 

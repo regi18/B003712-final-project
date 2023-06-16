@@ -90,3 +90,60 @@ a, a:hover, a:focus, a:active {
     color: #fff;
   }
 }
+
+/* -------------------- SECTION --------------------  */
+
+section.without-image, section > div.spacing-wrapper {
+  margin: 0 auto;
+  padding: 40px 35px;
+  max-width: 985px;
+
+  @include mobile {
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+  }
+
+  h2 {
+    font-size: 30px;
+    line-height: 1.2em;
+    font-weight: 300;
+
+    @include mobile {
+      font-size: 25px;
+    }
+  }
+
+  & > h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+}
+
+section.black-bar-section {
+  background: #222;
+
+  .wrapper {
+    margin: auto;
+    padding: 40px 35px;
+    color: #fff;
+    max-width: 985px;
+
+    @include mobile {
+      padding-left: 30px !important;
+      padding-right: 30px !important;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-weight: 300;
+
+      @include mobile {
+        font-size: 25px !important;
+      }
+    }
+
+    p {
+      text-align: center;
+    }
+  }
+}

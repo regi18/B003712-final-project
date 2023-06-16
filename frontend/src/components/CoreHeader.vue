@@ -2,16 +2,21 @@
   <header class="main-header">
     <div class="header-wrapper">
       <h1>
-        <a href="https://www.nhgazette.com/">The New Hampshire Gazette</a>
+        <router-link to="/pollo">The Florentine University Gazette</router-link>
       </h1>
-      <p>The Nation’s Oldest Newspaper™ • Editor: Steven Fowle • Founded 1756 by Daniel Fowle</p>
+      <p>The University’s Oldest Looking Newspaper™ • Editor: Simone Carletti • Founded 2023 by	Studium Generale</p>
     </div>
   </header>
 </template>
 
 <script lang="ts">
+import { RouterLink } from 'vue-router';
+
 export default {
   name: 'core-header',
+  components: {
+    RouterLink,
+  },
 };
 </script>
 

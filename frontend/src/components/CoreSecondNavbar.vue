@@ -25,15 +25,19 @@ export default {
   components: {
     RouterLink,
   },
+  provide() {
+    return {
+      departmentsList: this.menuItems,
+    };
+  },
   data() {
     return {
       isMobileMenuOpen: false,
       menuItems: [
-        { url: '/todo', title: 'The Fortnightly Rant' },
-        { url: '/todo', title: 'The Alleged News®' },
-        { url: '/todo', title: 'Mash Notes, Hate Mail & Other Correspondence' },
-        { url: '/todo', title: 'The Northcountry Chronicle' },
-        { url: '/todo', title: 'Page 8' },
+        { url: '/staff-articles', title: 'Articles from Staff Members' },
+        { url: '/the-student-gazette', title: 'The Student Gazette®' },
+        { url: '/cartoons', title: 'Non-Political Cartoons' },
+        { url: '/the-research-journal', title: 'The Research Journal' },
       ]
     };
   },

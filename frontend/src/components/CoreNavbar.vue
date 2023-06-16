@@ -28,20 +28,20 @@
           <router-link :to="e.url" v-if="!e?.children?.length">{{ e.title }}</router-link>
 
           <template v-else>
-            <router-link :to="e.url">
+            <a>
               {{ e.title }}
               <i
                 ref="topNavSubMenuArrow"
                 class="fas fa-angle-down arrow-down"
                 @click="
                   $event.preventDefault();
-                  openSubMenu();
+                  openSubMenu($event, e);
                 "
               >
               </i>
-            </router-link>
+            </a>
 
-            <ul class="sub-menu" ref="topNavSubMenu">
+            <ul class="sub-menu" :ref="e.url">
               <li class="sub-menu-item" v-for="c of e.children" :key="c.url">
                 <router-link :to="c.url">{{ c.title }}</router-link>
               </li>
@@ -67,6 +67,7 @@ import { RouterLink } from 'vue-router';
 
 export default {
   name: 'core-navbar',
+  inject: ['currentScreenSize'],
   components: {
     RouterLink,
   },
@@ -75,6 +76,10 @@ export default {
       isMobileMenuOpen: false,
       isMobileSecondMenuOpen: false,
       menuItems: [
+        {
+          title: 'Home',
+          url: '/',
+        },
         {
           title: 'Subscribe/Donate',
           url: 'subscribe-donate',
@@ -92,12 +97,12 @@ export default {
           url: 'archives',
           children: [
             {
-              title: 'Archives 2',
-              url: 'archives-2',
+              title: 'Current Year',
+              url: '/archives/' + new Date().getFullYear(),
             },
             {
-              title: 'Archives 3',
-              url: 'archives-3',
+              title: 'Past Years',
+              url: '/archives/past-years',
             },
           ],
         },
@@ -105,10 +110,11 @@ export default {
     };
   },
   methods: {
-    openSubMenu() {
-      this.$refs.topNavSubMenu.classList.toggle('is-open');
-      this.$refs.topNavSubMenuArrow.classList.toggle('fa-angle-down');
-      this.$refs.topNavSubMenuArrow.classList.toggle('fa-angle-up');
+    openSubMenu(event: any, item: any) {
+      if (this.currentScreenSize !== 'mobile') return;
+      this.$refs[item.url][0].classList.toggle('is-open');
+      event.target.classList.toggle('fa-angle-down');
+      event.target.classList.toggle('fa-angle-up');
     },
   },
 };

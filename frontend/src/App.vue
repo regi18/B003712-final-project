@@ -14,7 +14,6 @@
 
 <script lang="ts">
 import { computed } from 'vue';
-
 import CoreNavbar from '@/components/CoreNavbar.vue';
 import CoreFooter from '@/components/CoreFooter.vue';
 import CoreHeader from './components/CoreHeader.vue';

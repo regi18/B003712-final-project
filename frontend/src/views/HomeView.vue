@@ -14,6 +14,9 @@
           Published once every galactic year on Friday.<br />
           Distributed for free by someone.<br />
         </p>
+        <p>
+          <router-link class="button" to="about">Learn More</router-link>
+        </p>
       </div>
     </section>
 
@@ -21,7 +24,7 @@
     <!-- LATEST PAPER SECTION -->
     <!-------------------------->
     <CoreLatestPaperSection />
-    
+
     <!----------------------------------->
     <!-- DOWNLOAD LATEST PAPER SECTION -->
     <!----------------------------------->
@@ -73,6 +76,7 @@ import CoreCarouselSection from '@/components/Home/CoreCarouselSection.vue';
 import CoreCartoonSection from '@/components/Home/CoreCartoonSection.vue';
 import CoreLatestPaperSection from '@/components/Home/CoreLatestPaperSection.vue';
 import CoreDownloadLatestPaperSection from '@/components/Home/CoreDownloadLatestPaperSection.vue';
+import { RouterLink } from 'vue-router';
 
 export default {
   components: {
@@ -80,6 +84,7 @@ export default {
     CoreCartoonSection,
     CoreLatestPaperSection,
     CoreDownloadLatestPaperSection,
+    RouterLink,
   },
   created() {
     // // Fetch articles (only last 4)

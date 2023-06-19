@@ -48,6 +48,16 @@ const router = createRouter({
       path: '/the-research-journal',
       name: 'the-research-journal',
       component: () => import('../views/TheResearchJournalView.vue')
+    },
+    {
+      path: "/logout",
+      name: "logout",
+      component: {
+        beforeRouteEnter(to, from, next) {
+          localStorage.removeItem("token");
+          window.location.href = "/";
+        }
+      }
     }
   ]
 })

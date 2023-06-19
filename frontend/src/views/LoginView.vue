@@ -38,6 +38,8 @@
 </template>
 
 <script lang="ts">
+import LoginService from '@/services/LoginService';
+
 export default {
   data() {
     return {
@@ -49,11 +51,17 @@ export default {
       showError: false,
     };
   },
+  created() {
+    if (LoginService.isLoggedIn()) {
+      this.$router.push('/');
+    }
+  },
   methods: {
     go() {
       // Login
       if (this.isLogin) {
         console.log('TODO');
+        LoginService.login(this.username, this.password);
       }
       // Register new user
       else {
@@ -62,7 +70,7 @@ export default {
           setTimeout(() => { this.showError = false; }, 1500);
           return;
         }
-        console.log('TODO');
+        LoginService.register(this.email, this.username, this.password);
       }
     },
   },

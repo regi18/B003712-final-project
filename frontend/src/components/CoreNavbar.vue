@@ -10,8 +10,8 @@
       </span>
 
       <span class="icon-only">
-        <router-link to="login">
-          <i class="fas fa-sign-in"></i>
+        <router-link :to="!isLogged ? 'login' : 'logout'">
+          <i :class="!isLogged ? 'fas fa-sign-in' : 'fas fa-sign-out'"></i>
         </router-link>
       </span>
     </div>
@@ -52,18 +52,9 @@
           </template>
         </li>
 
-        <!---------------->
-        <!-- SEARCH BAR -->
-        <!---------------->
-        <!-- <li class="menu-item icon-only">
-          <a>
-            <i class="fas fa-magnifying-glass"></i>
-          </a>
-        </li> -->
-
         <li class="menu-item icon-only">
-          <router-link to="login">
-            <i class="fas fa-sign-in"></i>
+          <router-link :to="!isLogged ? 'login' : 'logout'">
+            <i :class="!isLogged ? 'fas fa-sign-in' : 'fas fa-sign-out'"></i>
           </router-link>
         </li>
       </ul>
@@ -73,6 +64,7 @@
 
 <script lang="ts">
 import { RouterLink } from 'vue-router';
+import LoginService from '@/services/LoginService';
 
 export interface NavbarItem {
   title: string;
@@ -87,10 +79,14 @@ export default {
   components: {
     RouterLink,
   },
+  created() {
+    this.isLogged = LoginService.isLoggedIn();
+  },
   data() {
     return {
       isMobileMenuOpen: false,
       isMobileSecondMenuOpen: false,
+      isLogged: false,
       menuItems: [
         {
           title: 'Home',

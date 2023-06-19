@@ -3,7 +3,7 @@
     <template v-for="(c, i) in carouselCards" :key="i">
       <div class="carousel-card" :style="getStyle(i)">
         <h2>{{ c.title }}</h2>
-        <p>{{ c.p }}</p>
+        <p>{{ c.content }}</p>
         <a class="button">Read more</a>
       </div>
     </template>
@@ -17,12 +17,14 @@
 </template>
 
 <script lang="ts">
+import type { PropType } from 'vue';
+
 export default {
   name: 'core-carousel',
   inject: ['currentScreenSize'],
   props: {
     carouselCards: {
-      type: Array,
+      type: Array as PropType<{ content: string; title: string }[]>,
       required: true,
     },
   },
@@ -174,7 +176,7 @@ export default {
       text-overflow: ellipsis;
       display: -webkit-box;
       -webkit-box-orient: vertical;
-      -webkit-line-clamp: 7;
+      -webkit-line-clamp: 6;
     }
   }
 

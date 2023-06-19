@@ -1,3 +1,3 @@
 <template>
-  <p>empty page</p>
+  <p>TODO Create page where users can create posts.</p>
 </template>

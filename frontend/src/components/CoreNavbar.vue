@@ -9,10 +9,10 @@
         Menu
       </span>
 
-      <span class="search-bar">
-        <a aria-label="Open Search Bar">
-          <i class="fas fa-magnifying-glass"></i>
-        </a>
+      <span class="icon-only">
+        <router-link to="login">
+          <i class="fas fa-sign-in"></i>
+        </router-link>
       </span>
     </div>
 
@@ -25,7 +25,10 @@
         <!-- MENU ITEM -->
         <!--------------->
         <li class="menu-item" :class="e?.children?.length ? 'with-sub-menu' : ''" v-for="e of menuItems" :key="e.url">
-          <router-link :to="e.url" v-if="!e?.children?.length">{{ e.title }}</router-link>
+          <router-link :to="e.url" v-if="!e?.children?.length">
+            {{ e.title }}
+            <i :class="e.icon" v-if="e.icon" style="margin-left: 0.3em"></i>
+          </router-link>
 
           <template v-else>
             <a>
@@ -52,10 +55,16 @@
         <!---------------->
         <!-- SEARCH BAR -->
         <!---------------->
-        <li class="menu-item search-bar">
+        <!-- <li class="menu-item icon-only">
           <a>
             <i class="fas fa-magnifying-glass"></i>
           </a>
+        </li> -->
+
+        <li class="menu-item icon-only">
+          <router-link to="login">
+            <i class="fas fa-sign-in"></i>
+          </router-link>
         </li>
       </ul>
     </div>
@@ -64,6 +73,13 @@
 
 <script lang="ts">
 import { RouterLink } from 'vue-router';
+
+export interface NavbarItem {
+  title: string;
+  url: string;
+  icon?: string;
+  children?: NavbarItem[];
+}
 
 export default {
   name: 'core-navbar',
@@ -82,7 +98,7 @@ export default {
         },
         {
           title: 'Subscribe/Donate',
-          url: 'subscribe-donate',
+          url: 'subscribe-to-the-gazette',
         },
         {
           title: 'About the Gazette',
@@ -90,23 +106,28 @@ export default {
         },
         {
           title: 'Contact Us',
-          url: 'contact',
+          url: 'contact-us',
         },
-        {
-          title: 'Archives',
-          url: 'archives',
-          children: [
-            {
-              title: 'Current Year',
-              url: '/archives/' + new Date().getFullYear(),
-            },
-            {
-              title: 'Past Years',
-              url: '/archives/past-years',
-            },
-          ],
-        },
-      ],
+        // {
+        //   title: 'Login',
+        //   url: 'login',
+        //   icon: 'fas fa-sign-in'
+        // },
+        // {
+        //   title: 'Archives',
+        //   url: 'archives',
+        //   children: [
+        //     {
+        //       title: 'Current Year',
+        //       url: '/archives/' + new Date().getFullYear(),
+        //     },
+        //     {
+        //       title: 'Past Years',
+        //       url: '/archives/past-years',
+        //     },
+        //   ],
+        // },
+      ] as NavbarItem[],
     };
   },
   methods: {
@@ -255,9 +276,13 @@ export default {
       ul.menu {
         flex-direction: column;
         flex: 1;
-
-        .menu-item.search-bar {
+        .menu-item.icon-only {
           display: none;
+
+          &.router-link-active {
+            color: #222222;
+            background-color: #ffffff;
+          }
         }
 
         li.menu-item.with-sub-menu a {
@@ -267,6 +292,10 @@ export default {
         }
       }
     }
+  }
+  .router-link-exact-active {
+    color: #ffffff !important;
+    background-color: #3f3f3f;
   }
 }
 </style>

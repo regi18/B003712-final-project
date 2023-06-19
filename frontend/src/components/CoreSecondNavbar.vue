@@ -36,9 +36,9 @@ export default {
       menuItems: [
         { url: '/staff-articles', title: 'Articles from Staff Members' },
         { url: '/the-student-gazette', title: 'The Student Gazette®' },
-        { url: '/cartoons', title: 'Non-Political Cartoons' },
+        { url: '/non-political-cartoons', title: 'Non-Political Cartoons' },
         { url: '/the-research-journal', title: 'The Research Journal' },
-      ]
+      ],
     };
   },
 };
@@ -116,6 +116,16 @@ export default {
       }
 
       flex-direction: column;
+    }
+  }
+
+  .router-link-exact-active {
+    color: #222222;
+    background-color: #ffffff;
+
+    &:hover {
+      color: #222222 !important;
+      background-color: #ffffff !important;
     }
   }
 }

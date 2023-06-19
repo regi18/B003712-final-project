@@ -1,4 +1,4 @@
-@import "responsive";
+@import 'responsive';
 
 body {
   background-color: #f5f5f5;
@@ -7,12 +7,18 @@ body {
   line-height: 1.6;
 }
 
-body, button, input, select, textarea {
-  font-family: "Playfair Display", serif;
+body,
+button,
+input,
+select,
+textarea {
+  font-family: 'Playfair Display', serif;
   font-size: 22px;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   text-align: center;
   margin: 0;
 }
@@ -44,35 +50,12 @@ img {
   max-width: 100%;
 }
 
-a, a:hover, a:focus, a:active {
+a,
+a:hover,
+a:focus,
+a:active {
   text-decoration: none;
   color: inherit;
-}
-
-.disclaimer {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 99999999999999;
-  background: white;
-  padding: 5em;
-  max-width: 100%;
-
-  &.show {
-    display: block;
-  }
-
-  @include mobile {
-    padding: 2em;
-    font-size: 15px;
-  }
-
-  @include tablet {
-    font-size: 18px;
-  }
 }
 
 .button {
@@ -91,9 +74,35 @@ a, a:hover, a:focus, a:active {
   }
 }
 
+.container {
+  margin: 0 auto;
+  padding: 40px 35px;
+
+  max-width: 800px;
+
+  @include mobile {
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+    font-size: 20px;
+  }
+
+  h1.align-left {
+    text-align: left;
+  }
+
+  p {
+    margin-top: 2em;
+
+    &.right {
+      text-align: right;
+    }
+  }
+}
+
 /* -------------------- SECTION --------------------  */
 
-section.without-image, section > div.spacing-wrapper {
+section.without-image,
+section > div.spacing-wrapper {
   margin: 0 auto;
   padding: 40px 35px;
   max-width: 985px;

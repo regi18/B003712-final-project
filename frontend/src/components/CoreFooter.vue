@@ -39,7 +39,7 @@
         <div class="widget">
           <h2>Mailing Information</h2>
           <p>
-            The The Florentine University Gazette<br />
+            The Florentine University Gazette<br />
             Viale Giovanni Battista Morgagni, 40, 50134 Firenze FI
           </p>
           <a class="social" href="https://joinmastodon.org/"><i class="fa-brands fa-square-twitter"></i></a>

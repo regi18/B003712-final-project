@@ -9,6 +9,12 @@ $desktop-breakpoint: 1025px;
   }
 }
 
+@mixin notMobile {
+  @media (min-width: #{$mobile-breakpoint + 1}) {
+    @content;
+  }
+}
+
 @mixin tablet {
   @media (min-width: #{$mobile-breakpoint + 1}) and (max-width: #{($desktop-breakpoint - 1)}) {
     @content;

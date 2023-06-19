@@ -2,9 +2,11 @@
   <header class="main-header">
     <div class="header-wrapper">
       <h1>
-        <router-link to="/pollo">The Florentine University Gazette</router-link>
+        <router-link to="/">The Florentine University Gazette</router-link>
       </h1>
-      <p>The University’s Oldest Looking Newspaper™ • Editor: Simone Carletti • Founded 2023 by	Studium Generale</p>
+      <p class="site-description">
+        The University’s Oldest Looking Newspaper™ • Editor: Simone Carletti • Founded 2023 by Floyd Pink
+      </p>
     </div>
   </header>
 </template>
@@ -39,11 +41,12 @@ header.main-header {
       color: #222222;
     }
 
-    p {
+    .site-description {
       margin: 0;
       line-height: 1.5;
       font-weight: 400;
       font-size: 15px;
+      color: #757575;
     }
   }
 }

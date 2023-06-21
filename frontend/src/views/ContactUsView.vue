@@ -6,9 +6,9 @@
       <strong>Founder</strong>: Floyd Pink (1965—1985)<br />
       Published once every galactic year on Friday<br />
       PO Box 123, Northpole, BN 12345<br />
-      simonecarletti.github.io<br />
+      <a href="https://simonecarletti.github.io" target="_blank">simonecarletti.github.io</a><br />
       (055) 275-1016<br />
-      we-dont-have-an-email@proton.me<br />
+      <a href="mailto:we-dont-have-an-email@proton.me">we-dont-have-an-email@proton.me</a><br />
     </p>
     <p>
       <strong>Editor</strong>: Simone Carletti<br />

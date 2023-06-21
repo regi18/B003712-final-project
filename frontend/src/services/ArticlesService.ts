@@ -1,21 +1,48 @@
 export interface SummaryArticle {
   title: string;
+  date: string;
   url: string;
   imgSrc: string;
-  date: string;
   content: string;
   author: string;
   subtitle: string;
 }
 
+export interface DownloadPaper {
+  title: string;
+  date: string;
+  downloadUrl: string;
+}
+
 export default class ArticlesService {
   /**
-   * TODO  change to getLatest and make the api cut the content to x words
+   * Returns a list of Articles with an abstract of content.
    *
-   * Returns a list of ResearchJournalArticle objects.
-   * @returns A promise that resolves to an array of ResearchJournalArticle objects.
+   * @param limit The number of articles to return (if null, it will return all).
+   * @returns A promise that resolves to an array of SummaryArticle objects.
    */
-  static async getSummary(): Promise<SummaryArticle[]> {
+  static async getLatest(limit: number | null = null): Promise<SummaryArticle[]> {
+    return this.tmp(limit).then((articles) => {
+      return articles.map((a) => ({ ...a, subtitle: ArticlesService.makeSubtitle(a.date, a.author) }));
+    });
+  }
+
+  static async getLatestDownload(): Promise<DownloadPaper> {
+    return Promise.resolve({
+      title: 'Volume 267, No. 20',
+      date: '2020-04-03',
+      downloadUrl: 'http://www.nhgazette.com/pdf/267_20.pdf',
+    });
+  }
+
+  // TODO /articles/{slug} returns a single article. Content is markdown and should be converted to HTML in the component.
+  // static async getArticle(): Promise<any> {
+  // }
+
+  /**
+   * TODO remove this function and replace with a call to the backend.
+   */
+  static async tmp(limit: any): Promise<any[]> {
     return Promise.resolve([
       {
         title: 'Moby Donald and the GOP',
@@ -63,7 +90,8 @@ export default class ArticlesService {
         url: '',
       },
     ]).then((articles) => {
-      return articles.map((a) => ({ ...a, subtitle: ArticlesService.makeSubtitle(a.date, a.author) }));
+      if (limit) return articles.slice(0, limit);
+      else return articles;
     });
   }
 

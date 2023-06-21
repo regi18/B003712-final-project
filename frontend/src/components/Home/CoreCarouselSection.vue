@@ -27,15 +27,7 @@ export default {
     RouterLink,
   },
   async created() {
-    const res: any[] = await TheResearchJournalService.getAll();
-    // Create title from date (in format "Mon, Jan 1")
-    res.forEach(
-      (e) =>
-        (e.title = Intl.DateTimeFormat('en-Us', { weekday: 'short', month: 'short', day: 'numeric' }).format(
-          Date.parse(e.date + 'T00:00:00')
-        ))
-    );
-    this.carouselCards = res;
+    this.carouselCards = await TheResearchJournalService.getAll();
   },
   data() {
     return {

@@ -3,33 +3,52 @@
     <h2>Download the Latest Paper</h2>
     <p class="divider">–=≈=–</p>
 
-    <div class="download-wrapper">
+    <div class="download-wrapper" v-if="loaded">
       <h2>
-        <a href="">Volume {{ volumeNo }}, No. {{ issueNo }}; {{ date }}</a>
+        <a href="">{{ title }}; {{ date }}</a>
       </h2>
       <div class="content">
-        <p><strong>{{ date }} —</strong> To download this issue of our paper, just click on the image at right.</p>
-        <img src="@/assets/img/front-page.png" alt="Gazette Front Page" @click="downloadPaper()"/>
+        <p>
+          <strong>{{ date }} —</strong> To download this issue of our paper, <a class="click-here" @click="downloadPaper">click here</a> or on the image at
+          right.
+        </p>
+        <img src="@/assets/img/front-page.png" alt="Gazette Front Page" @click="downloadPaper()" />
       </div>
+    </div>
+
+    <div class="download-wrapper" v-else>
+      <p>Loading...</p>
     </div>
   </section>
 </template>
 
 <script lang="ts">
+import ArticlesService from '@/services/ArticlesService';
+
 export default {
   name: 'core-download-latest-paper-section',
+  created() {
+    this.loaded = false;
+    ArticlesService.getLatestDownload().then((res) => {
+      this.date = Intl.DateTimeFormat('en-Us', { year: 'numeric', month: 'long', day: 'numeric' }).format(Date.parse(res.date));
+      this.title = res.title;
+      this.url = res.downloadUrl;
+      this.loaded = true;
+    });
+  },
   data() {
     return {
-      date: 'March TODO, TODO',
-      volumeNo: 777,
-      issueNo: 33,
+      loaded: false,
+      title: '',
+      date: '',
+      url: '',
     };
   },
   methods: {
     downloadPaper() {
-      window.open('TODO', '_blank');
+      window.open(this.url, '_blank');
     },
-  }
+  },
 };
 </script>
 
@@ -73,6 +92,12 @@ section.section-3 {
         cursor: pointer;
       }
     }
+  }
+
+  .click-here {
+    color: #000;
+    text-decoration: underline;
+    cursor: pointer;
   }
 }
 </style>

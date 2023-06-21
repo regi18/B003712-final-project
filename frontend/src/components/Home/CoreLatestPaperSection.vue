@@ -35,8 +35,7 @@ export default {
     RouterLink,
   },
   created() {
-    // TODO Change this in getLatest or somthing like that
-    ArticlesService.getSummary().then((res) => (this.articles = res.slice(0, 4)));
+    ArticlesService.getLatest(4).then((res) => (this.articles = res));
   },
   data() {
     return {

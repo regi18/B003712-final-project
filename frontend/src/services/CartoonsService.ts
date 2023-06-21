@@ -1,6 +1,6 @@
 export interface CartoonItem {
-    src: string;
-    caption: string;
+  src: string;
+  caption: string;
 }
 
 export default class CartoonsService {

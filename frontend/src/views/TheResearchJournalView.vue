@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import TheResearchJournalService from '@/services/TheResearchJournalService';
+import TheResearchJournalService, { type ResearchJournalArticle } from '@/services/TheResearchJournalService';
 import { RouterLink } from 'vue-router';
 
 export default {
@@ -28,16 +28,11 @@ export default {
     RouterLink,
   },
   created() {
-    TheResearchJournalService.getAllSummary().then((res) => {
-      this.items = res.map((e) => ({
-        ...e,
-        title: Intl.DateTimeFormat('en-Us', { weekday: 'short', month: 'long', day: 'numeric' }).format(Date.parse(e.date + 'T00:00:00')),
-      }));
-    });
+    TheResearchJournalService.getAll('long').then((res) =>  this.items = res);
   },
   data() {
     return {
-      items: null as any[] | null,
+      items: null as ResearchJournalArticle[] | null,
     };
   },
 };

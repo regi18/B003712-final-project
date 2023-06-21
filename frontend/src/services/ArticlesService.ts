@@ -18,10 +18,10 @@ export default class ArticlesService {
   /**
    * Returns a list of Articles with an abstract of content.
    *
-   * @param limit The number of articles to return (if null, it will return all).
+   * @param limit The number of latest articles to return (if null, it will return all).
    * @returns A promise that resolves to an array of SummaryArticle objects.
    */
-  static async getLatest(limit: number | null = null): Promise<SummaryArticle[]> {
+  static async getAll(limit: number | null = null): Promise<SummaryArticle[]> {
     return this.tmp(limit).then((articles) => {
       return articles.map((a) => ({ ...a, subtitle: ArticlesService.makeSubtitle(a.date, a.author) }));
     });

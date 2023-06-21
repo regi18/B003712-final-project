@@ -26,8 +26,8 @@
 </template>
 
 <script lang="ts">
-import { RouterLink } from 'vue-router';
 import ArticlesService, { type SummaryArticle } from '@/services/ArticlesService';
+import { RouterLink } from 'vue-router';
 
 export default {
   name: 'core-latest-paper-section',
@@ -35,7 +35,7 @@ export default {
     RouterLink,
   },
   created() {
-    ArticlesService.getLatest(4).then((res) => (this.articles = res));
+    ArticlesService.getAll(4).then((res) => (this.articles = res));
   },
   data() {
     return {

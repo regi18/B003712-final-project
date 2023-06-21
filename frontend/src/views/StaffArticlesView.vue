@@ -38,7 +38,7 @@ export default {
     RouterLink,
   },
   created() {
-    ArticlesService.getLatest().then((res) => (this.items = res));
+    ArticlesService.getAll().then((res) => (this.items = res));
   },
   data() {
     return {

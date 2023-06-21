@@ -1,5 +1,5 @@
 <template>
-  <div class="the-research-journal container">
+  <div class="container">
     <h1 class="align-left">Papers Archive</h1>
 
     <p>Here you can download all our issued papers.</p>

@@ -39,11 +39,11 @@ const router = createRouter({
       name: 'archives',
       component: () => import('../views/ArchivesView.vue')
     },
-    // {
-    //   path: '/user',
-    //   name: 'user',
-    //   component: () => import('../views/UserView.vue')
-    // },
+    {
+      path: '/user',
+      name: 'user',
+      component: () => import('../views/UserView.vue')
+    },
     // {
     //   path: '/the-student-gazette',
     //   name: 'the-student-gazette',

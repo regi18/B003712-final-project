@@ -104,6 +104,10 @@ export default {
           title: 'Contact Us',
           url: 'contact-us',
         },
+        {
+          title: 'Archives',
+          url: 'archives',
+        },
         // {
         //   title: 'Login',
         //   url: 'login',

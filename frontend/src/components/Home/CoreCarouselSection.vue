@@ -27,7 +27,8 @@ export default {
     RouterLink,
   },
   async created() {
-    this.carouselCards = await TheResearchJournalService.getAll();
+    // Get the latest 30 articles from the research journal with 'short' month in the title
+    this.carouselCards = await TheResearchJournalService.getAll(30, 'short');
   },
   data() {
     return {

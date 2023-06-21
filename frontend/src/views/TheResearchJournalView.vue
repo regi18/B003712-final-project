@@ -28,7 +28,7 @@ export default {
     RouterLink,
   },
   created() {
-    TheResearchJournalService.getAll('long').then((res) =>  this.items = res);
+    TheResearchJournalService.getAll().then((res) =>  this.items = res);
   },
   data() {
     return {

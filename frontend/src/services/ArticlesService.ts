@@ -27,12 +27,40 @@ export default class ArticlesService {
     });
   }
 
+  /**
+   * Get the url to download the latest paper.
+   * @returns A promise that resolves to a single DownloadPaper object.
+   */
   static async getLatestDownload(): Promise<DownloadPaper> {
     return Promise.resolve({
       title: 'Volume 267, No. 20',
       date: '2020-04-03',
       downloadUrl: 'http://www.nhgazette.com/pdf/267_20.pdf',
     });
+  }
+
+  /**
+   * Get a list of all papers available for download (with links to download them).
+   * @returns A promise that resolves to an array of DownloadPaper objects.
+   */
+  static async getAllDownloads(): Promise<DownloadPaper[]> {
+    return Promise.resolve([
+      {
+        title: 'Volume 267, No. 20',
+        date: '2020-04-03',
+        downloadUrl: 'http://www.nhgazette.com/pdf/267_20.pdf',
+      },
+      {
+        title: 'Volume 267, No. 19',
+        date: '2020-03-20',
+        downloadUrl: 'http://www.nhgazette.com/pdf/267_19.pdf',
+      },
+      {
+        title: 'Volume 267, No. 18',
+        date: '2020-03-06',
+        downloadUrl: 'http://www.nhgazette.com/pdf/267_18.pdf',
+      },
+    ]);
   }
 
   // TODO /articles/{slug} returns a single article. Content is markdown and should be converted to HTML in the component.

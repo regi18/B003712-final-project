@@ -67,7 +67,9 @@ export default {
       else {
         if (this.password !== this.repeatPassword || this.password === '') {
           this.showError = true;
-          setTimeout(() => { this.showError = false; }, 1500);
+          setTimeout(() => {
+            this.showError = false;
+          }, 1500);
           return;
         }
         LoginService.register(this.email, this.username, this.password);
@@ -95,11 +97,6 @@ form {
 
     label {
       padding-right: 30px;
-    }
-
-    input {
-      border: 1px solid #939393;
-      border-radius: 3px;
     }
   }
 }

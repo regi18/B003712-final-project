@@ -27,12 +27,12 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: () => import('../views/LoginView.vue'),
+      component: () => import('../views/admin/LoginView.vue'),
     },
     {
       path: '/staff-articles',
       name: 'staff-articles',
-      component: () => import('../views/StaffArticlesView.vue'),
+      component: () => import('../views/departments/StaffArticlesView.vue'),
     },
     {
       path: '/archives',
@@ -42,27 +42,27 @@ const router = createRouter({
     {
       path: '/user',
       name: 'user',
-      component: () => import('../views/UserView.vue'),
+      component: () => import('../views/admin/UserView.vue'),
     },
     {
       path: '/admin',
       name: 'admin',
-      component: () => import('../views/AdminView.vue'),
+      component: () => import('../views/admin/AdminView.vue'),
     },
     // {
     //   path: '/the-student-gazette',
     //   name: 'the-student-gazette',
-    //   component: () => import('../views/TheStudentGazetteView.vue')
+    //   component: () => import('../views/departments/TheStudentGazetteView.vue')
     // },
     {
       path: '/non-political-cartoons',
       name: 'non-political-cartoons',
-      component: () => import('../views/NonPoliticalCartoonsView.vue'),
+      component: () => import('../views/departments/NonPoliticalCartoonsView.vue'),
     },
     {
       path: '/the-research-journal',
       name: 'the-research-journal',
-      component: () => import('../views/TheResearchJournalView.vue'),
+      component: () => import('../views/departments/TheResearchJournalView.vue'),
     },
     {
       path: '/logout',

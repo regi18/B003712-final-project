@@ -1,5 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '../views/HomeView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,42 +7,47 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: HomeView,
     },
     {
       path: '/about',
       name: 'about',
-      component: () => import('../views/AboutView.vue')
+      component: () => import('../views/AboutView.vue'),
     },
     {
       path: '/subscribe-to-the-gazette',
       name: 'subscribe-to-the-gazette',
-      component: () => import('../views/SubscribeDonateView.vue')
+      component: () => import('../views/SubscribeDonateView.vue'),
     },
     {
       path: '/contact-us',
       name: 'contact-us',
-      component: () => import('../views/ContactUsView.vue')
+      component: () => import('../views/ContactUsView.vue'),
     },
     {
       path: '/login',
       name: 'login',
-      component: () => import('../views/LoginView.vue')
+      component: () => import('../views/LoginView.vue'),
     },
     {
       path: '/staff-articles',
       name: 'staff-articles',
-      component: () => import('../views/StaffArticlesView.vue')
+      component: () => import('../views/StaffArticlesView.vue'),
     },
     {
       path: '/archives',
       name: 'archives',
-      component: () => import('../views/ArchivesView.vue')
+      component: () => import('../views/ArchivesView.vue'),
     },
     {
       path: '/user',
       name: 'user',
-      component: () => import('../views/UserView.vue')
+      component: () => import('../views/UserView.vue'),
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: () => import('../views/AdminView.vue'),
     },
     // {
     //   path: '/the-student-gazette',
@@ -52,24 +57,24 @@ const router = createRouter({
     {
       path: '/non-political-cartoons',
       name: 'non-political-cartoons',
-      component: () => import('../views/NonPoliticalCartoonsView.vue')
+      component: () => import('../views/NonPoliticalCartoonsView.vue'),
     },
     {
       path: '/the-research-journal',
       name: 'the-research-journal',
-      component: () => import('../views/TheResearchJournalView.vue')
+      component: () => import('../views/TheResearchJournalView.vue'),
     },
     {
-      path: "/logout",
-      name: "logout",
+      path: '/logout',
+      name: 'logout',
       component: {
         beforeRouteEnter(to, from, next) {
-          localStorage.removeItem("token");
-          window.location.href = "/";
-        }
-      }
-    }
-  ]
-})
+          localStorage.removeItem('token');
+          window.location.href = '/';
+        },
+      },
+    },
+  ],
+});
 
-export default router
+export default router;

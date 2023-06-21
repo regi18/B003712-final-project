@@ -5,8 +5,13 @@
     <hr />
 
     <div class="wrapper">
-      <h2 class="align-left" style="font-size: 1.2em">Change password</h2>
+      <template v-if="isAdmin">
+        <h2 class="align-left" style="font-size: 1.2em">It looks like you can do more!</h2>
+        <router-link to="admin">Click here for the administration panel</router-link>
+        <div class="spacer"></div>
+      </template>
 
+      <h2 class="align-left" style="font-size: 1.2em">Change password</h2>
       <form>
         <div class="form-group">
           <label for="password">Password</label>
@@ -26,16 +31,21 @@
 </template>
 
 <script lang="ts">
+import { RouterLink } from 'vue-router';
+
 // TODO protect this component/route from unauthenticated users
 export default {
   name: 'UserView',
+  components: {
+    RouterLink,
+  },
   created() {
     // TODO fetch username
   },
   methods: {
     changePassword() {
       // TODO
-    }
+    },
   },
   data() {
     return {
@@ -43,6 +53,7 @@ export default {
       showError: false,
       password: '',
       repeatPassword: '',
+      isAdmin: true,
     };
   },
 };
@@ -51,6 +62,16 @@ export default {
 <style lang="scss" scoped>
 .container {
   min-height: 50vh;
+}
+
+a {
+  text-decoration: underline;
+}
+
+.spacer {
+  height: 3em;
+  width: 100%;
+  display: block;
 }
 
 form {

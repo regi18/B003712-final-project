@@ -60,7 +60,7 @@ export default {
     // Set starting point of swipe gesture
     handleMouseDown(e: any, isTouch = false) {
       this.isSwiping = true;
-      this.$refs.carousel.classList.add('no-transition');
+      this.$refs.carousel?.classList.add('no-transition');
 
       if (isTouch) this.baseSwipeOffset = e.target.offsetLeft - e.touches[0].clientX;
       else this.baseSwipeOffset = e.target.offsetLeft - e.clientX;
@@ -69,7 +69,7 @@ export default {
     handleMouseUp() {
       this.isSwiping = false;
       // Remove transition for smooth swiping
-      this.$refs.carousel.classList.remove('no-transition');
+      this.$refs.carousel?.classList.remove('no-transition');
 
       // The minimum that you have to swipe to change slide
       const limit = 150;

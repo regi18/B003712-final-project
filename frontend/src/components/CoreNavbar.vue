@@ -25,13 +25,14 @@
         <!-- MENU ITEM -->
         <!--------------->
         <li class="menu-item" :class="e?.children?.length ? 'with-sub-menu' : ''" v-for="e of menuItems" :key="e.url">
-          <router-link :to="e.url" v-if="!e?.children?.length">
+          <router-link :to="e.url" v-if="!e?.children?.length && (!e.if || e?.if())">
             {{ e.title }}
             <i :class="e.icon" v-if="e.icon" style="margin-left: 0.3em"></i>
           </router-link>
 
-          <template v-else>
+          <template v-else-if="e.if && (!e.if || e?.if())">
             <a>
+              <i :class="e.icon" v-if="e.icon"></i>
               {{ e.title }}
               <i
                 ref="topNavSubMenuArrow"
@@ -46,13 +47,16 @@
 
             <ul class="sub-menu" :ref="e.url">
               <li class="sub-menu-item" v-for="c of e.children" :key="c.url">
-                <router-link :to="c.url">{{ c.title }}</router-link>
+                <router-link :to="c.url">
+                  <i :class="c.icon" v-if="c.icon" style="margin-right: 0.5em"></i>
+                  {{ c.title }}
+                </router-link>
               </li>
             </ul>
           </template>
         </li>
 
-        <li class="menu-item icon-only">
+        <li class="menu-item icon-only" v-if="!isLogged">
           <router-link :to="!isLogged ? 'login' : 'logout'">
             <i :class="!isLogged ? 'fas fa-sign-in' : 'fas fa-sign-out'"></i>
           </router-link>
@@ -71,6 +75,7 @@ export interface NavbarItem {
   url: string;
   icon?: string;
   children?: NavbarItem[];
+  if?: () => boolean;
 }
 
 export default {
@@ -108,25 +113,23 @@ export default {
           title: 'Archives',
           url: 'archives',
         },
-        // {
-        //   title: 'Login',
-        //   url: 'login',
-        //   icon: 'fas fa-sign-in'
-        // },
-        // {
-        //   title: 'Archives',
-        //   url: 'archives',
-        //   children: [
-        //     {
-        //       title: 'Current Year',
-        //       url: '/archives/' + new Date().getFullYear(),
-        //     },
-        //     {
-        //       title: 'Past Years',
-        //       url: '/archives/past-years',
-        //     },
-        //   ],
-        // },
+        {
+          if: () => this.isLogged,
+          icon: 'fas fa-user',
+          url: 'logout',
+          children: [
+            {
+              title: 'Account',
+              url: 'user',
+              icon: 'fas fa-user',
+            },
+            {
+              title: 'Logout',
+              url: 'logout',
+              icon: 'fas fa-sign-out',
+            },
+          ],
+        },
       ] as NavbarItem[],
     };
   },

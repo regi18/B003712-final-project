@@ -39,6 +39,10 @@ export default class ArticlesService {
   // static async getArticle(): Promise<any> {
   // }
 
+  // // TODO return all the papers. And than when you click on one it will take you to thath paper. Same page as for latest paper but different title.
+  // static async getArchive(): Promise<any> {
+  // }
+
   /**
    * TODO remove this function and replace with a call to the backend.
    */

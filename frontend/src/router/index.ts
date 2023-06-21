@@ -34,11 +34,11 @@ const router = createRouter({
       name: 'staff-articles',
       component: () => import('../views/StaffArticlesView.vue')
     },
-    {
-      path: '/the-student-gazette',
-      name: 'the-student-gazette',
-      component: () => import('../views/TheStudentGazetteView.vue')
-    },
+    // {
+    //   path: '/the-student-gazette',
+    //   name: 'the-student-gazette',
+    //   component: () => import('../views/TheStudentGazetteView.vue')
+    // },
     {
       path: '/non-political-cartoons',
       name: 'non-political-cartoons',

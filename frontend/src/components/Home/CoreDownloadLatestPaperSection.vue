@@ -9,8 +9,9 @@
       </h2>
       <div class="content">
         <p>
-          <strong>{{ date }} —</strong> To download this issue of our paper, <a class="click-here" @click="downloadPaper">click here</a> or on the image at
-          right.
+          Here you can download the latest issue of the Gazette.<br />
+          It puts together all the best articles from the last month ({{ date }}).<br />
+          To download this issue of our paper, <a class="click-here" @click="downloadPaper">click here</a> or on the image at right.
         </p>
         <img src="@/assets/img/front-page.png" alt="Gazette Front Page" @click="downloadPaper()" />
       </div>
@@ -70,6 +71,7 @@ section.section-3 {
 
     .content {
       display: flex;
+      justify-content: space-between;
 
       @media (max-width: 550px) {
         margin: auto;

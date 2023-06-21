@@ -1,8 +1,6 @@
 <template>
   <div class="staff-articles container">
-    <h1>Read the lastest paper</h1>
-    <h3>TODO put date/issue/number of last paper</h3>
-
+    <h1>Read the lastest articles</h1>
     <p v-if="!items">Loading...</p>
 
     <template v-else>

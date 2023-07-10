@@ -1,1 +1,5 @@
 Django
+djangorestframework
+markdown
+django-filter
+django-cors-headers

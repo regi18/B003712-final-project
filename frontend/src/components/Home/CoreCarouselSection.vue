@@ -28,7 +28,9 @@ export default {
   },
   async created() {
     // Get the latest 30 articles from the research journal with 'short' month in the title
-    this.carouselCards = await TheResearchJournalService.getAll(30, 'short');
+    const c: any = await TheResearchJournalService.getAll(30, 'short');
+    c.forEach((e: any) => (e.url = `/the-research-journal/${e.id}`));
+    this.carouselCards = c;
   },
   data() {
     return {

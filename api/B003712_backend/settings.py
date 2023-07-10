@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'articles.apps.ArticlesConfig',
     'cartoons.apps.CartoonsConfig',
+    'the_research_journal.apps.TheResearchJournalConfig',
 ]
 
 MIDDLEWARE = [

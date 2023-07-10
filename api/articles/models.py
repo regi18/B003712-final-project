@@ -16,6 +16,9 @@ class Article(models.Model):
     # The article's issue number
     issueNumber = models.IntegerField()
 
+    class Meta:
+        ordering = ['-date']
+
 
 class PdfIssue(models.Model):
     issueNumber = models.IntegerField()

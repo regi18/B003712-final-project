@@ -49,11 +49,6 @@ const router = createRouter({
       name: 'admin',
       component: () => import('../views/admin/AdminView.vue'),
     },
-    // {
-    //   path: '/the-student-gazette',
-    //   name: 'the-student-gazette',
-    //   component: () => import('../views/departments/TheStudentGazetteView.vue')
-    // },
     {
       path: '/non-political-cartoons',
       name: 'non-political-cartoons',

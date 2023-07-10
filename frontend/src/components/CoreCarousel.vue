@@ -4,7 +4,7 @@
       <div class="carousel-card" :style="getStyle(i)">
         <h2>{{ c.title }}</h2>
         <p>{{ c.content }}</p>
-        <a class="button">Read more</a>
+        <a class="button" :to="c.url">Read more</a>
       </div>
     </template>
   </div>
@@ -24,7 +24,7 @@ export default {
   inject: ['currentScreenSize'],
   props: {
     carouselCards: {
-      type: Array as PropType<{ content: string; title: string }[]>,
+      type: Array as PropType<{ content: string; title: string; url: string; }[]>,
       required: true,
     },
   },

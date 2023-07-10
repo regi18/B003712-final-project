@@ -6,7 +6,7 @@ from articles.serializers import ArticleSerializer, PdfIssueSerializer
 
 @api_view(['GET'])
 def index(request):
-    articles = Article.objects.all().order_by('-date')
+    articles = Article.objects.all()
 
     # If a limit query parameter is passed, limit the queryset
     if (request.query_params.get('limit')):

@@ -7,7 +7,7 @@
         The Florentine University Gazette’s resident starving artist. Over 7 years of bad satire, some whimsical and
         some occasionally irreverent.
       </p>
-      <router-link to="cartoons" class="button">Visit the Gallery</router-link>
+      <router-link to="non-political-cartoons" class="button">Visit the Gallery</router-link>
       <br />
       <img src="@/assets/img/cartoon.webp" alt="cartoon" style="padding-top: 1.3em" />
     </div>

@@ -15,3 +15,12 @@ class Article(models.Model):
     content = models.TextField()
     # The article's issue number
     issueNumber = models.IntegerField()
+
+
+class PdfIssue(models.Model):
+    issueNumber = models.IntegerField()
+    url = models.CharField(max_length=100)
+    createdAt = models.DateField(auto_now_add=True)
+
+    class Meta:
+        get_latest_by = ['createdAt']

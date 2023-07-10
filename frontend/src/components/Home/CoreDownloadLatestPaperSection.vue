@@ -5,12 +5,12 @@
 
     <div class="download-wrapper" v-if="loaded">
       <h2>
-        <a href="">{{ title }}; {{ date }}</a>
+        <a :href="url" target="_blank">Issue {{ issueNumber }}; {{ date }}</a>
       </h2>
       <div class="content">
         <p>
           Here you can download the latest issue of the Gazette.<br />
-          It puts together all the best articles from the last month ({{ date }}).<br />
+          It puts together all the best articles from the last month ({{ dateNoDay }}).<br />
           To download this issue of our paper, <a class="click-here" @click="downloadPaper">click here</a> or on the image.<br />
           To download older papers, explore our <a class="click-here" href="/archives">archive</a>.
         </p>
@@ -32,9 +32,11 @@ export default {
   created() {
     this.loaded = false;
     ArticlesService.getLatestDownload().then((res) => {
-      this.date = Intl.DateTimeFormat('en-Us', { year: 'numeric', month: 'long', day: 'numeric' }).format(Date.parse(res.date));
+      this.date = Intl.DateTimeFormat('en-Us', { year: 'numeric', month: 'long', day: 'numeric' }).format(Date.parse(res.createdAt));
+      this.dateNoDay = Intl.DateTimeFormat('en-Us', { year: 'numeric', month: 'long' }).format(Date.parse(res.createdAt));
       this.title = res.title;
-      this.url = res.downloadUrl;
+      this.url = res.url;
+      this.issueNumber = res.issueNumber;
       this.loaded = true;
     });
   },
@@ -43,7 +45,9 @@ export default {
       loaded: false,
       title: '',
       date: '',
+      dateNoDay: '',
       url: '',
+      issueNumber: 0,
     };
   },
   methods: {

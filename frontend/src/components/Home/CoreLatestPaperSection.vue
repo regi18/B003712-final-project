@@ -1,6 +1,6 @@
 <template>
   <section class="section-2 without-image">
-    <h2>Read the Latest Articles Online<br />–=≈=–</h2>
+    <h2>Read the Latest Articles From Staff Members<br />–=≈=–</h2>
 
     <div class="article-wrapper">
       <article v-for="a of articles" :key="a.url">

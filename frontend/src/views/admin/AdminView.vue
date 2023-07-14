@@ -5,14 +5,14 @@
     <div class="sidenav">
       <ul>
         <li :class="section === 'articles' ? 'active' : ''" @click="setSection('articles')">Articles</li>
+        <li :class="section === 'sections' ? 'active' : ''" @click="setSection('sections')">Sections</li>
         <li :class="section === 'cartoons' ? 'active' : ''" @click="setSection('cartoons')">Cartoons</li>
-        <li :class="section === 'research-journal' ? 'active' : ''" @click="setSection('research-journal')">The Research Journal</li>
         <li :class="section === 'papers-issues' ? 'active' : ''" @click="setSection('papers-issues')">Papers Issues</li>
       </ul>
     </div>
 
     <div class="content">
-      <CoreCrudList :editorTemplate="template" :items="items" @saveItem="onSave($event)" @deleteItem="onDelete($event)"></CoreCrudList>
+      <CoreCrudList :editorTemplate="template" :titleKey="titleKey" :items="items" @saveItem="onSave($event)" @deleteItem="onDelete($event)"></CoreCrudList>
     </div>
   </div>
 </template>
@@ -21,6 +21,7 @@
 import CoreCrudList from '@/components/CoreCrudList.vue';
 import type { CoreEditorTemplateItem } from '@/interfaces/CoreEditor';
 import templates from '@/assets/AdminEditorTemplates';
+import { get } from '@/services/AjaxService';
 
 // TODO protect this component/route from unauthenticated users
 export default {
@@ -29,16 +30,32 @@ export default {
     CoreCrudList,
   },
   created() {
-    // TODO
     this.setSection('articles');
   },
   methods: {
-    setSection(section: string) {
+    async setSection(section: string) {
       this.section = section;
 
-      if (this.section === 'cartoons') this.template = templates.cartoon;
-      if (this.section === 'papers-issues') this.template = templates.paperIssue;
-      else this.template = templates.article;
+      if (this.section === 'cartoons') {
+        this.template = templates.cartoon;
+        this.items = await get('cartoons');
+        this.titleKey = 'title'
+      }
+      else if (this.section === 'papers-issues') {
+        this.template = templates.paperIssue;
+        this.items = await get('downloads');
+        this.titleKey = 'issueNumber'
+      }
+      else if (this.section === 'sections') {
+        this.template = templates.section;
+        this.items = await get('sections');
+        this.titleKey = 'title'
+      }
+      else {
+        this.template = templates.article;
+        this.items = await get('articles');
+        this.titleKey = 'title'
+      }
     },
     onSave(item: any) {
       console.log('createOrUpdate', item);
@@ -50,37 +67,9 @@ export default {
   data() {
     return {
       section: 'articles',
+      titleKey: 'title',
       template: {} as CoreEditorTemplateItem[],
-      items: [
-        {
-          id: 1,
-          title: 'The First Article',
-          author: 'asdfasdf',
-          subtitle: 'test',
-          content: 'asdfaskjfaksdjflkasjdf hasdjhf  asiodufoiadkf a *asdf* asdfasdfadfs',
-        },
-        {
-          id: 1,
-          title: 'The Second Article',
-          author: 'asdfasdf',
-          subtitle: 'test',
-          content: 'asdfaskjfaksdjflkasjdf hasdjhf  asiodufoiadkf a *asdf* asdfasdfadfs',
-        },
-        {
-          id: 1,
-          title: 'The Second Article',
-          subtitle: 'test',
-          author: 'asdfasdf',
-          content: 'asdfaskjfaksdjflkasjdf hasdjhf  asiodufoiadkf a *asdf* asdfasdfadfs',
-        },
-        {
-          id: 1,
-          title: 'The Second Article',
-          author: 'asdfasdf',
-          subtitle: 'test',
-          content: 'asdfaskjfaksdjflkasjdf hasdjhf  asiodufoiadkf a *asdf* asdfasdfadfs',
-        },
-      ],
+      items: [] as any[],
     };
   },
 };

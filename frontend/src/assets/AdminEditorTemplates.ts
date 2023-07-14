@@ -23,8 +23,8 @@ export default {
   cartoon: [
     {
       type: 'input',
-      title: 'Caption',
-      key: 'caption',
+      title: 'Title',
+      key: 'title',
     },
     {
       title: 'Image',
@@ -47,4 +47,16 @@ export default {
       key: 'img',
     },
   ],
+  section: [
+    {
+      type: 'input',
+      title: 'Title',
+      key: 'title',
+    },
+    {
+      title: 'Slug',
+      type: 'input',
+      key: 'slug',
+    }
+  ]
 } as Record<string, CoreEditorTemplateItem[]>;

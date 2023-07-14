@@ -5,8 +5,8 @@ urlpatterns = [
     path('articles/', articles_view.ArticlesView.as_view()),
     path('articles/<pk>/', articles_view.ArticleDetailView.as_view()),
 
-    path('download/latest/', downloads_view.getLatestPdfIssue),
-    path('download/', downloads_view.getPdfIssues),
+    path('downloads/latest/', downloads_view.getLatestPdfIssue),
+    path('downloads/', downloads_view.DownloadsView.as_view()),
 
     path('sections/', sections_view.SectionsView.as_view()),
     path('sections/<pk>/', sections_view.SectionDetailView.as_view()),

@@ -8,6 +8,7 @@ export interface Article {
   content: string;
   author: string;
   issueNumber: number;
+  section: string;
 }
 
 export interface SummaryArticle extends Article {
@@ -18,7 +19,6 @@ export interface SummaryArticle extends Article {
 export interface DownloadPaper {
   title: string;
   issueNumber: number;
-  date: string;
   url: string;
   createdAt: string;
 }
@@ -31,7 +31,7 @@ export default class ArticlesService {
    * @returns A promise that resolves to an array of SummaryArticle objects.
    */
   static async getAll(limit: number | null = null): Promise<SummaryArticle[]> {
-    const articles = await get('articles', { limit });
+    const articles = await get('articles', { limit, section: 'staff-articles' });
     return articles.map((a: any) => {
       return { ...a, subtitle: ArticlesService.makeSubtitle(a.date, a.author), url: `/articles/${a.slug}` };
     });
@@ -42,7 +42,7 @@ export default class ArticlesService {
    * @returns A promise that resolves to a single DownloadPaper object.
    */
   static async getLatestDownload(): Promise<DownloadPaper> {
-    return get('articles/download/latest');
+    return get('downloads/latest');
   }
 
   /**
@@ -50,7 +50,7 @@ export default class ArticlesService {
    * @returns A promise that resolves to an array of DownloadPaper objects.
    */
   static async getAllDownloads(): Promise<DownloadPaper[]> {
-    return get('articles/download');
+    return get('downloads');
   }
 
   /**

@@ -9,17 +9,18 @@
     <p v-if="!items">Loading...</p>
 
     <div class="articles-wrapper" v-else>
-      <article class="article" v-for="item of items" :key="item.url">
+      <article class="article" v-for="item of items" :key="item.slug">
         <h2>{{ item.title }}</h2>
         <p>{{ item.content }}</p>
-        <router-link :to="item.url" class="button">Read More</router-link>
+        <router-link :to="item.section + '/' + item.slug" class="button">Read More</router-link>
       </article>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import TheResearchJournalService, { type ResearchJournalArticle } from '@/services/TheResearchJournalService';
+import type { Article } from '@/services/ArticlesService';
+import TheResearchJournalService from '@/services/TheResearchJournalService';
 import { RouterLink } from 'vue-router';
 
 export default {
@@ -32,7 +33,7 @@ export default {
   },
   data() {
     return {
-      items: null as ResearchJournalArticle[] | null,
+      items: null as Article[] | null,
     };
   },
 };

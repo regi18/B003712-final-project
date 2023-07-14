@@ -9,8 +9,8 @@
     <p v-if="!items">Loading...</p>
 
     <div class="articles-wrapper" v-else>
-      <article class="article" v-for="item of items" :key="item.downloadUrl">
-        <a :href="item.downloadUrl" target="_blank">{{ item.title }} - {{ getDate(item.date) }}</a>
+      <article class="article" v-for="item of items" :key="item.url">
+        <a :href="item.url" target="_blank">Issue No. {{ item.issueNumber }} - {{ getDate(item.createdAt) }}</a>
       </article>
     </div>
   </div>
@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     getDate(date: string) {
-      return Intl.DateTimeFormat('en-Us', { year: 'numeric', month: 'long', day: 'numeric' }).format(Date.parse(date));
+      return Intl.DateTimeFormat('en-Us', { year: 'numeric', month: 'long', day: 'numeric' }).format(Date.parse(date + 'T00:00:00'));
     },
   },
   data() {

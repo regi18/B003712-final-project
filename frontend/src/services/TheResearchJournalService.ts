@@ -1,11 +1,6 @@
 import { get } from './AjaxService';
+import type { Article } from './ArticlesService';
 
-export interface ResearchJournalArticle {
-  id: number;
-  title: string;
-  createdAt: string;
-  content: string;
-}
 
 export default class TheResearchJournalService {
   /**
@@ -14,19 +9,23 @@ export default class TheResearchJournalService {
    * @param month The month format to use for the title.
    * @returns A promise that resolves to an array of ResearchJournalArticle objects.
    */
-  static async getAll(limit: number | null = null, month: 'short' | 'long' = 'long'): Promise<ResearchJournalArticle[]> {
-    const articles: ResearchJournalArticle[] = await get('the-research-journal', { limit });
+  static async getAll(limit: number | null = null, month: 'short' | 'long' = 'long'): Promise<Article[]> {
+    const articles: Article[] = await get('articles', { section: 'the-research-journal', limit });
 
-    // Create titles from dates
-    articles.forEach(
-      (a) => (a.title = Intl.DateTimeFormat('en-Us', { weekday: 'short', month, day: 'numeric' }).format(Date.parse(a.createdAt + 'T00:00:00')))
-    );
+    articles.forEach((a) => { 
+      // Create titles from dates
+      a.title = Intl.DateTimeFormat('en-Us', { weekday: 'short', month, day: 'numeric' }).format(Date.parse(a.date)) 
+      // Create abstracts from content
+      a.content = a.content.split(' ').slice(0, 50).join(' ') + '...';
+    });
 
     return articles;
   }
 
   
-  // TODO /research-journal/{slug} returns a single article. Content is markdown and should be converted to HTML in the component.
-  // static async getArticle(): Promise<any> {
-  // }
+  // TODO Content is markdown and should be converted to HTML in the component.
+  // TODO this method is the same as getArticle() in ArticlesService.ts
+  static async getArticle(slug: string): Promise<Article> {
+    return get(`articles/${slug}`);
+  }
 }

@@ -15,9 +15,16 @@ class Article(models.Model):
     content = models.TextField()
     # The article's issue number
     issueNumber = models.IntegerField()
+    # The section of the article
+    section = models.ForeignKey('Section', on_delete=models.PROTECT)
 
     class Meta:
         ordering = ['-date']
+
+
+class Section(models.Model):
+    slug = models.SlugField(max_length=100, primary_key=True)
+    title = models.CharField(max_length=100)
 
 
 class PdfIssue(models.Model):

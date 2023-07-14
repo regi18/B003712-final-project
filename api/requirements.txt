@@ -4,3 +4,4 @@ markdown
 django-filter
 django-cors-headers
 Pillow
+drf-extra-fields

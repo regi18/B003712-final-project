@@ -36,6 +36,7 @@ export default {
     },
     {
       title: 'Image',
+      key: 'img',
       type: 'file',
       mime: 'image/*',
     },

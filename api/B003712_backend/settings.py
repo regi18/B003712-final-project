@@ -39,9 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'articles.apps.ArticlesConfig',
-    'cartoons.apps.CartoonsConfig',
-    'the_research_journal.apps.TheResearchJournalConfig',
+    'main.apps.MainConfig',
 ]
 
 MIDDLEWARE = [

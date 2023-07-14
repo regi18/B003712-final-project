@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from cartoons.models import Cartoon
+from main.models.cartoon import Cartoon
 
 
 class CartoonSerializer(serializers.ModelSerializer):

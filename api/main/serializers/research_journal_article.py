@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from cartoons.models import Cartoon
-from the_research_journal.models import ResearchJournalArticle
+from main.models.research_journal_article import ResearchJournalArticle
 
 
 class ResearchJournalArticleSerializer(serializers.ModelSerializer):

@@ -33,7 +33,7 @@ export default class ArticlesService {
   static async getAll(limit: number | null = null, section = 'staff-articles'): Promise<SummaryArticle[]> {
     const articles = await get('articles', { limit, section });
     return articles.map((a: any) => {
-      return { ...a, subtitle: ArticlesService.makeSubtitle(a.date, a.author), url: `/articles/${a.slug}` };
+      return { ...a, subtitle: ArticlesService.makeSubtitle(a.date, a.author), url: `/sections/${a.section}/${a.slug}` };
     });
   }
 

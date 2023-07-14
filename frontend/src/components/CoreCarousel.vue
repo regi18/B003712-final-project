@@ -4,7 +4,7 @@
       <div class="carousel-card" :style="getStyle(i)">
         <h2>{{ c.title }}</h2>
         <p>{{ c.content }}</p>
-        <a class="button" :to="c.url">Read more</a>
+        <router-link class="button" :to="c.url">Read more</router-link>
       </div>
     </template>
   </div>

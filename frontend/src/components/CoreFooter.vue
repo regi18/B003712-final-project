@@ -22,15 +22,6 @@
           </ul>
         </div>
 
-        <!-- <div class="widget">
-          <h2>Departments</h2>
-          <ul id="menu-paper-sidebar" class="menu">
-            <li v-for="e of departments" :key="e.url">
-              <router-link :to="e.url">{{ e.title }}</router-link>
-            </li>
-          </ul>
-        </div> -->
-
         <div class="widget">
           <h2>People Powered Press</h2>
           <p>All contribution will be used to do something. Maybe.</p>

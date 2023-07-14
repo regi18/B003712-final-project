@@ -10,7 +10,7 @@
       </span>
 
       <span class="icon-only">
-        <router-link :to="!isLogged ? 'login' : 'logout'">
+        <router-link :to="!isLogged ? '/login' : '/logout'">
           <i :class="!isLogged ? 'fas fa-sign-in' : 'fas fa-sign-out'"></i>
         </router-link>
       </span>
@@ -57,7 +57,7 @@
         </li>
 
         <li class="menu-item icon-only" v-if="!isLogged">
-          <router-link :to="!isLogged ? 'login' : 'logout'">
+          <router-link :to="!isLogged ? '/login' : '/logout'">
             <i :class="!isLogged ? 'fas fa-sign-in' : 'fas fa-sign-out'"></i>
           </router-link>
         </li>
@@ -99,33 +99,33 @@ export default {
         },
         {
           title: 'Subscribe/Donate',
-          url: 'subscribe-to-the-gazette',
+          url: '/subscribe-to-the-gazette',
         },
         {
           title: 'About the Gazette',
-          url: 'about',
+          url: '/about',
         },
         {
           title: 'Contact Us',
-          url: 'contact-us',
+          url: '/contact-us',
         },
         {
           title: 'Archives',
-          url: 'archives',
+          url: '/archives',
         },
         {
           if: () => this.isLogged,
           icon: 'fas fa-user',
-          url: 'logout',
+          url: '/logout',
           children: [
             {
               title: 'Account',
-              url: 'user',
+              url: '/user',
               icon: 'fas fa-user',
             },
             {
               title: 'Logout',
-              url: 'logout',
+              url: '/logout',
               icon: 'fas fa-sign-out',
             },
           ],

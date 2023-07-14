@@ -15,7 +15,7 @@
           Distributed for free by someone.<br />
         </p>
         <p>
-          <router-link class="button" to="about">Learn More</router-link>
+          <router-link class="button" to="/about">Learn More</router-link>
         </p>
       </div>
     </section>

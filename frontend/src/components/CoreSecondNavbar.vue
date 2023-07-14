@@ -10,7 +10,7 @@
 
       <ul class="secondary-menu" :class="{ 'is-open-mobile': isMobileMenuOpen }">
         <li class="menu-item" v-for="e of menuItems" :key="e.url">
-          <router-link :to="e.url">{{ e.title }}</router-link>
+          <router-link :to="'/sections/' + e.url">{{ e.title }}</router-link>
         </li>
       </ul>
     </div>
@@ -18,6 +18,7 @@
 </template>
 
 <script lang="ts">
+import { get } from '@/services/AjaxService';
 import { RouterLink } from 'vue-router';
 
 export default {
@@ -25,19 +26,22 @@ export default {
   components: {
     RouterLink,
   },
-  provide() {
-    return {
-      departmentsList: this.menuItems,
-    };
+  async created() {
+    // Fetch sections from API and sort them alphabetically
+    let s: any[] = await get('sections');
+    s = s.map((e: any) => ({ url: e.slug, title: e.title }));
+    s = s.sort((a: any, b: any) => a.title.localeCompare(b.title));
+    this.menuItems = [...s, ...this.menuItems];
   },
   data() {
     return {
       isMobileMenuOpen: false,
+      // Static menu items
       menuItems: [
-        { url: '/staff-articles', title: 'Articles from Staff Members' },
+        // { url: '/staff-articles', title: 'Articles from Staff Members' },
         // { url: '/the-student-gazette', title: 'The Student Gazette®' },
-        { url: '/non-political-cartoons', title: 'Non-Political Cartoons' },
-        { url: '/the-research-journal', title: 'The Research Journal' },
+        // { url: '/the-research-journal', title: 'The Research Journal' },
+        { url: 'non-political-cartoons', title: 'Non-Political Cartoons' },
       ],
     };
   },

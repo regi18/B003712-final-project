@@ -1,7 +1,8 @@
 <template>
   <div class="staff-articles container">
-    <h1>Read the lastest articles</h1>
+    <h1>{{ sectionTitle }}</h1>
     <p v-if="!items">Loading...</p>
+    <p v-else-if="items.length === 0">No articles found.</p>
 
     <template v-else>
       <!-- Make first article bigger -->
@@ -29,20 +30,34 @@
 </template>
 
 <script lang="ts">
+import { get } from '@/services/AjaxService';
 import ArticlesService, { type SummaryArticle } from '@/services/ArticlesService';
 import { RouterLink } from 'vue-router';
 
 export default {
-  name: 'StaffArticlesView',
+  name: 'ArticlesView',
   components: {
     RouterLink,
   },
-  created() {
-    ArticlesService.getAll().then((res) => (this.items = res));
+  async created() {
+    this.section = this.$route.params.section as string;
+
+    try {
+      let s = await get('sections/' + this.section);
+      this.sectionTitle = s.title;
+    } 
+    // Error, section not found
+    catch (e) {
+      this.$router.push({ path: '/404' });
+    }
+
+    ArticlesService.getAll(null, this.section).then((res) => (this.items = res));
   },
   data() {
     return {
       items: null as SummaryArticle[] | null,
+      section: '',
+      sectionTitle: '',
     };
   },
 };

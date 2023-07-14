@@ -17,7 +17,7 @@ function makeUrl(url: string, params?: Params): URL {
   return _url;
 }
 
-function request(method: Methods, url: string, params?: Params, body?: Record<string, any>): Promise<Response> {
+async function request(method: Methods, url: string, params?: Params, body?: Record<string, any>): Promise<Response> {
   let data = undefined;
   if (method === 'POST' && !!body) {
     data = {
@@ -29,7 +29,10 @@ function request(method: Methods, url: string, params?: Params, body?: Record<st
     };
   }
 
-  return fetch(makeUrl(url, params), data).then((r) => r.json());
+  const res = await fetch(makeUrl(url, params), data);
+
+  if (!res.ok) throw new Error(res.statusText);
+  else return res.json();
 }
 
 // ------------------------------ 

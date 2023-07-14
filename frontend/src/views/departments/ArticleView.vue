@@ -6,7 +6,7 @@
       <h1 class="article-title">{{ article.title }}</h1>
       <span class="subtitle">{{ subtitle }}</span>
 
-      <img :src="article.imgSrc" onerror="this.style.display='none'" />
+      <img :src="article.img" onerror="this.style.display='none'" />
 
       <VueMarkdown :source="article.content" />
     </article>
@@ -72,7 +72,6 @@ img {
 
 :deep(p) {
   margin-top: 1.3em !important;
-
 
   &::first-letter {
     initial-letter: 2 !important;

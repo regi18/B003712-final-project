@@ -2,7 +2,7 @@ from django.db import models
 
 class PdfIssue(models.Model):
     issueNumber = models.IntegerField()
-    url = models.CharField(max_length=100)
+    pdf = models.FileField(upload_to='pdfIssues')
     createdAt = models.DateField(auto_now_add=True)
 
     class Meta:

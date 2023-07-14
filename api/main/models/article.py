@@ -11,8 +11,8 @@ class Article(models.Model):
     author = models.CharField(max_length=100)
     # The date the article was published
     date = models.DateTimeField("date published", auto_now_add=True)
-    # The URL of the article's main image
-    imgSrc = models.CharField(max_length=100, blank=True, null=True)
+    # The article's main image
+    img = models.ImageField(upload_to='images/articles', blank=True, null=True)
     # The article's content
     content = models.TextField()
     # The article's issue number

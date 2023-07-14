@@ -11,10 +11,10 @@
           <div class="description">{{ a.subtitle }}</div>
         </header>
 
-        <figure v-if="!!a.imgSrc">
-          <img :src="a.imgSrc" :alt="a.title" onerror="this.style.display='none'" />
+        <figure v-if="!!a.img">
+          <img :src="a.img" :alt="a.title" onerror="this.style.display='none'" />
         </figure>
-        
+
         <p>{{ removeMd(a.content) }}</p>
 
         <div class="actions">
@@ -36,12 +36,14 @@ export default {
     RouterLink,
   },
   created() {
-    ArticlesService.getAll(4).then((res) => { this.articles = res; });
+    ArticlesService.getAll(4).then((res) => {
+      this.articles = res;
+    });
   },
   methods: {
     removeMd(e: any) {
       return removeMd(e);
-    }
+    },
   },
   data() {
     return {

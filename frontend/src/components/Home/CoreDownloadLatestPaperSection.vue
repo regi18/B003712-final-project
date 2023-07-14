@@ -35,7 +35,7 @@ export default {
       this.date = Intl.DateTimeFormat('en-Us', { year: 'numeric', month: 'long', day: 'numeric' }).format(Date.parse(res.createdAt));
       this.dateNoDay = Intl.DateTimeFormat('en-Us', { year: 'numeric', month: 'long' }).format(Date.parse(res.createdAt));
       this.title = res.title;
-      this.url = res.url;
+      this.url = res.pdf;
       this.issueNumber = res.issueNumber;
       this.loaded = true;
     });

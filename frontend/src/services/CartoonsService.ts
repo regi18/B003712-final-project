@@ -11,7 +11,7 @@ export default class CartoonsService {
       return res.map((r: any) => {
         const d = Intl.DateTimeFormat('en-Us', { year: 'numeric', month: 'long', day: 'numeric' }).format(Date.parse(r.createdAt));
         return {
-          src: r.imgSrc,
+          src: r.img,
           caption: r.title + ' - ' + d,
         };
       });

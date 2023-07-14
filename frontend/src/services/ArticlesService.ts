@@ -4,7 +4,7 @@ export interface Article {
   slug: string;
   title: string;
   date: string;
-  imgSrc: string;
+  img: string;
   content: string;
   author: string;
   issueNumber: number;
@@ -19,7 +19,7 @@ export interface SummaryArticle extends Article {
 export interface DownloadPaper {
   title: string;
   issueNumber: number;
-  url: string;
+  pdf: string;
   createdAt: string;
 }
 

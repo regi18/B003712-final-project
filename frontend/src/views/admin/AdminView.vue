@@ -7,12 +7,18 @@
         <li :class="section === 'articles' ? 'active' : ''" @click="setSection('articles')">Articles</li>
         <li :class="section === 'sections' ? 'active' : ''" @click="setSection('sections')">Sections</li>
         <li :class="section === 'cartoons' ? 'active' : ''" @click="setSection('cartoons')">Cartoons</li>
-        <li :class="section === 'papers-issues' ? 'active' : ''" @click="setSection('papers-issues')">Papers Issues</li>
+        <li :class="section === 'downloads' ? 'active' : ''" @click="setSection('downloads')">Papers Issues</li>
       </ul>
     </div>
 
     <div class="content">
-      <CoreCrudList :editorTemplate="template" :titleKey="titleKey" :items="items" @saveItem="onSave($event)" @deleteItem="onDelete($event)"></CoreCrudList>
+      <CoreCrudList
+        :editorTemplate="template"
+        :titleKey="titleKey"
+        :items="items"
+        @saveItem="onSave($event)"
+        @deleteItem="onDelete($event)"
+      ></CoreCrudList>
     </div>
   </div>
 </template>
@@ -21,7 +27,7 @@
 import CoreCrudList from '@/components/CoreCrudList.vue';
 import type { CoreEditorTemplateItem } from '@/interfaces/CoreEditor';
 import templates from '@/assets/AdminEditorTemplates';
-import { get } from '@/services/AjaxService';
+import { get, post, put, remove } from '@/services/AjaxService';
 
 // TODO protect this component/route from unauthenticated users
 export default {
@@ -35,33 +41,51 @@ export default {
   methods: {
     async setSection(section: string) {
       this.section = section;
+      this.items = [];
 
       if (this.section === 'cartoons') {
         this.template = templates.cartoon;
         this.items = await get('cartoons');
-        this.titleKey = 'title'
-      }
-      else if (this.section === 'papers-issues') {
+        this.titleKey = 'title';
+      } 
+      else if (this.section === 'downloads') {
         this.template = templates.paperIssue;
         this.items = await get('downloads');
-        this.titleKey = 'issueNumber'
-      }
+        this.titleKey = 'issueNumber';
+      } 
       else if (this.section === 'sections') {
         this.template = templates.section;
         this.items = await get('sections');
-        this.titleKey = 'title'
+        this.titleKey = 'title';
+      } 
+      else if (this.section === 'articles') {
+        this.template = templates.article;
+        const sections = await get('sections');
+        const i = this.template.findIndex(e => e.key === 'section');
+        this.template[i].options = sections.map((e: any) => ({ key: e.slug, title: e.title }));
+
+        this.items = await get('articles');
+        this.titleKey = 'title';
+      }
+    },
+    async onSave(item: any) {
+      if (item.isNew) {
+        // Create item
+        await post(this.section, item);
       }
       else {
-        this.template = templates.article;
-        this.items = await get('articles');
-        this.titleKey = 'title'
+        // Update
+        await put(this.section + '/' + item.slug ?? item.id, item);
       }
+
+      // Reload
+      this.items = await get(this.section);
     },
-    onSave(item: any) {
-      console.log('createOrUpdate', item);
-    },
-    onDelete(item: any) {
-      console.log('delete', item);
+    async onDelete(item: any) {
+      // Delete item
+      await remove(this.section + '/' + item.slug ?? item.id);
+      // Reload
+      this.items = await get(this.section);
     },
   },
   data() {

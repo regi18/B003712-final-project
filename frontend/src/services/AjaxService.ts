@@ -18,10 +18,11 @@ function makeUrl(url: string, params?: Params): URL {
 }
 
 async function request(method: Methods, url: string, params?: Params, body?: Record<string, any>): Promise<Response> {
-  let data = undefined;
-  if (method === 'POST' && !!body) {
+  let data: any = { method };
+
+  if ((method === 'POST' || method === 'PUT') && !!body) {
     data = {
-      method: 'POST',
+      ...data,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -29,9 +30,12 @@ async function request(method: Methods, url: string, params?: Params, body?: Rec
     };
   }
 
+  console.log(method, data, body);
+
   const res = await fetch(makeUrl(url, params), data);
 
   if (!res.ok) throw new Error(res.statusText);
+  if (res.status === 204) return {};
   else return res.json();
 }
 
@@ -41,14 +45,14 @@ export function get(url: string, params?: Params): Promise<Response> {
   return request('GET', url, params);
 }
 
-export function post(url: string, params?: Params, body?: Record<string, any>): Promise<Response> {
+export function post(url: string, body: Record<string, any>, params?: Params): Promise<Response> {
   return request('POST', url, params, body);
 }
 
-export function put(url: string, params?: Params, body?: Record<string, any>): Promise<Response> {
+export function put(url: string, body: Record<string, any>, params?: Params): Promise<Response> {
   return request('PUT', url, params, body);
 }
 
 export function remove(url: string, params?: Params): Promise<Response> {
-    return request('DELETE', url, params);
+  return request('DELETE', url, params);
 }

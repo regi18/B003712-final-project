@@ -19,8 +19,18 @@
         <!-- Input -->
         <input type="text" :id="t.key" v-model="editItem[t.key]" v-if="t.type === 'input'" />
 
+        <!-- Number -->
+        <input type="number" :id="t.key" v-model="editItem[t.key]" v-if="t.type === 'number'" />
+
         <!-- Textarea -->
         <textarea id="content" rows="10" v-model="editItem[t.key]" v-else-if="t.type === 'textarea'"></textarea>
+
+        <!-- Select -->
+        <select v-model="editItem[t.key]" v-if="t.type === 'select'">
+          <option v-for="option in t.options" :key="option.key" :value="option.key">
+            {{ option.title }}
+          </option>
+        </select>
 
         <!-- File -->
         <input

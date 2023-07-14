@@ -63,10 +63,10 @@ export default {
   },
   methods: {
     addNew() {
-      this.editItem = {};
+      this.editItem = {isNew: true};
     },
     onEdit(item: any) {
-      this.editItem = item;
+      this.editItem = JSON.parse(JSON.stringify(item));
     },
     onDelete(item: any) {
       if (confirm('Are you sure you want to delete this item?')) this.$emit('deleteItem', item);

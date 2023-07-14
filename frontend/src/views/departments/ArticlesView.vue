@@ -9,7 +9,7 @@
       <article class="first-article">
         <h2>{{ items[0].title }}</h2>
         <span class="subtitle">{{ items[0].subtitle }}</span>
-        <img :src="items[0].imgSrc" alt="article-image" />
+        <img :src="items[0].imgSrc" onerror="this.style.display='none'" />
         <p class="article-content">{{ removeMd(items[0].content) }}</p>
         <router-link :to="items[0].url" class="button">Read More</router-link>
       </article>
@@ -19,7 +19,7 @@
           <article class="article" :key="item.url" v-if="index !== 0">
             <h2>{{ item.title }}</h2>
             <span class="subtitle">{{ item.subtitle }}</span>
-            <img :src="item.imgSrc" alt="article-image" />
+            <img :src="item.imgSrc" onerror="this.style.display='none'" />
             <p class="article-content">{{ removeMd(item.content) }}</p>
             <router-link :to="item.url" class="button">Read More</router-link>
           </article>

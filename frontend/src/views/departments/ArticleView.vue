@@ -6,7 +6,7 @@
       <h1 class="article-title">{{ article.title }}</h1>
       <span class="subtitle">{{ subtitle }}</span>
 
-      <img :src="article.imgSrc" alt="article-image" onerror="this.style.display='none'" />
+      <img :src="article.imgSrc" onerror="this.style.display='none'" />
 
       <VueMarkdown :source="article.content" />
     </article>

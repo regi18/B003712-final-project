@@ -5,8 +5,19 @@ export default {
   article: [
     {
       type: 'input',
+      title: 'Slug',
+      key: 'slug',
+    },
+    {
+      type: 'input',
       title: 'Title',
       key: 'title',
+    },
+    {
+      type: 'select',
+      key: 'section',
+      title: 'Section',
+      options: [],
     },
     {
       title: 'Author',
@@ -14,9 +25,19 @@ export default {
       key: 'author',
     },
     {
+      title: 'Issue No.',
+      type: 'number',
+      key: 'issueNumber',
+    },
+    {
       title: 'Content (markdown)',
       type: 'textarea',
       key: 'content',
+    },
+    {
+      title: 'Image',
+      type: 'file',
+      mime: 'image/*',
     },
   ],
   // Editor template for cartoons

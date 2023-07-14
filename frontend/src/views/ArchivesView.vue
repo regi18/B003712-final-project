@@ -9,8 +9,8 @@
     <p v-if="!items">Loading...</p>
 
     <div class="articles-wrapper" v-else>
-      <article class="article" v-for="item of items" :key="item.url">
-        <a :href="item.url" target="_blank">Issue No. {{ item.issueNumber }} - {{ getDate(item.createdAt) }}</a>
+      <article class="article" v-for="item of items" :key="item.pdf">
+        <a :href="item.pdf" target="_blank">Issue No. {{ item.issueNumber }} - {{ getDate(item.createdAt) }}</a>
       </article>
     </div>
   </div>

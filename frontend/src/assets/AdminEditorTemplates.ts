@@ -58,15 +58,15 @@ export default {
   // Editor template for paper issues
   paperIssue: [
     {
-      type: 'input',
-      title: 'Title',
-      key: 'title',
+      type: 'number',
+      title: 'Issue No.',
+      key: 'issueNumber',
     },
     {
       title: 'Paper (pdf)',
       type: 'file',
       mime: 'application/pdf',
-      key: 'img',
+      key: 'pdf',
     },
   ],
   section: [

@@ -10,7 +10,7 @@ class DownloadsView(generics.ListCreateAPIView):
     serializer_class = PdfIssueSerializer
 
 
-class SectionDetailView(generics.RetrieveUpdateDestroyAPIView):
+class DownloadDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = PdfIssue.objects.all()
     serializer_class = PdfIssueSerializer
 

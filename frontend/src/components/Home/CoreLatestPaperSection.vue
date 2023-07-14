@@ -12,10 +12,10 @@
         </header>
 
         <figure v-if="!!a.imgSrc">
-          <img :src="a.imgSrc" :alt="a.title" />
+          <img :src="a.imgSrc" :alt="a.title" onerror="this.style.display='none'" />
         </figure>
-
-        <p>{{ a.content }}</p>
+        
+        <p>{{ removeMd(a.content) }}</p>
 
         <div class="actions">
           <router-link class="button" :to="a.url">Read More</router-link>
@@ -28,6 +28,7 @@
 <script lang="ts">
 import ArticlesService, { type SummaryArticle } from '@/services/ArticlesService';
 import { RouterLink } from 'vue-router';
+import removeMd from 'remove-markdown';
 
 export default {
   name: 'core-latest-paper-section',
@@ -35,7 +36,12 @@ export default {
     RouterLink,
   },
   created() {
-    ArticlesService.getAll(4).then((res) => { this.articles = res });
+    ArticlesService.getAll(4).then((res) => { this.articles = res; });
+  },
+  methods: {
+    removeMd(e: any) {
+      return removeMd(e);
+    }
   },
   data() {
     return {

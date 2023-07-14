@@ -10,7 +10,7 @@
         <h2>{{ items[0].title }}</h2>
         <span class="subtitle">{{ items[0].subtitle }}</span>
         <img :src="items[0].imgSrc" alt="article-image" />
-        <p class="article-content">{{ items[0].content }}</p>
+        <p class="article-content">{{ removeMd(items[0].content) }}</p>
         <router-link :to="items[0].url" class="button">Read More</router-link>
       </article>
 
@@ -20,7 +20,7 @@
             <h2>{{ item.title }}</h2>
             <span class="subtitle">{{ item.subtitle }}</span>
             <img :src="item.imgSrc" alt="article-image" />
-            <p class="article-content">{{ item.content }}</p>
+            <p class="article-content">{{ removeMd(item.content) }}</p>
             <router-link :to="item.url" class="button">Read More</router-link>
           </article>
         </template>
@@ -33,25 +33,41 @@
 import { get } from '@/services/AjaxService';
 import ArticlesService, { type SummaryArticle } from '@/services/ArticlesService';
 import { RouterLink } from 'vue-router';
+import removeMd from 'remove-markdown';
 
 export default {
   name: 'ArticlesView',
   components: {
     RouterLink,
   },
-  async created() {
-    this.section = this.$route.params.section as string;
+  created() {
+    this.load();
+  },
+  methods: {
+    async load() {
+      this.items = null;
+      console.log('objecasdfasdfasdfasdfasdft');
+      this.section = this.$route.params.section as string;
 
-    try {
-      let s = await get('sections/' + this.section);
-      this.sectionTitle = s.title;
-    } 
-    // Error, section not found
-    catch (e) {
-      this.$router.push({ path: '/404' });
-    }
+      try {
+        let s = await get('sections/' + this.section);
+        this.sectionTitle = s.title;
+      } 
+      catch (e) {
+        // Error, section not found
+        this.$router.push({ path: '/404' });
+      }
 
-    ArticlesService.getAll(null, this.section).then((res) => (this.items = res));
+      ArticlesService.getAll(null, this.section).then((res) => (this.items = res));
+    },
+    removeMd(e: any) {
+      return removeMd(e);
+    },
+  },
+  watch: {
+    $route(to, from) {
+      this.load();
+    },
   },
   data() {
     return {

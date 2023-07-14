@@ -80,6 +80,11 @@ const router = createRouter({
         },
       ],
     },
+    {
+      path: '/sections/:section/:slug',
+      name: 'article',
+      component: () => import('../views/departments/ArticleView.vue'),
+    },
   ],
 });
 

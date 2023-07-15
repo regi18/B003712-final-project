@@ -5,12 +5,12 @@ export default class LoginService {
     const res = await post('/login', { username, password });
     localStorage.setItem('token', res?.token);
 
-    window.location.href = '/user';
+    window.location.href = '/admin';
   }
 
-  static register(email: string, username: string, password: string) {
-    console.log('register');
-  }
+  // static register(email: string, username: string, password: string) {
+  //   console.log('register');
+  // }
 
   static isLoggedIn() {
     return localStorage.getItem('token') !== null;

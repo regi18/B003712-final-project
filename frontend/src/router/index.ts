@@ -40,11 +40,11 @@ const router = createRouter({
       name: 'archives',
       component: () => import('../views/ArchivesView.vue'),
     },
-    {
-      path: '/user',
-      name: 'user',
-      component: () => import('../views/admin/UserView.vue'),
-    },
+    // {
+    //   path: '/user',
+    //   name: 'user',
+    //   component: () => import('../views/admin/UserView.vue'),
+    // },
     {
       path: '/admin',
       name: 'admin',
@@ -85,6 +85,7 @@ const router = createRouter({
       name: 'article',
       component: () => import('../views/departments/ArticleView.vue'),
     },
+    { path: '/:pathMatch(.*)*', name: 'NotFound', redirect: '/404' },
   ],
 });
 

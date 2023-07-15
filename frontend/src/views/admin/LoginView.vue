@@ -61,26 +61,28 @@ export default {
   methods: {
     async go() {
       // Login
-      if (this.isLogin) {
-        try {
-          await LoginService.login(this.username, this.password);
-        }
-        catch (err: any) {
-          this.error = err?.errors?.message;
-          setTimeout(() => { this.error = ''; }, 2000);
-        }
+      // if (this.isLogin) {
+      try {
+        await LoginService.login(this.username, this.password);
       }
-      // Register new user
-      else {
-        if (this.password !== this.repeatPassword || this.password === '') {
-          this.showError = true;
-          setTimeout(() => {
-            this.showError = false;
-          }, 1500);
-          return;
-        }
-        LoginService.register(this.email, this.username, this.password);
+      catch (err: any) {
+        this.error = err?.errors?.message;
+        setTimeout(() => {
+          this.error = '';
+        }, 2000);
       }
+      // }
+      // // Register new user
+      // else {
+      //   if (this.password !== this.repeatPassword || this.password === '') {
+      //     this.showError = true;
+      //     setTimeout(() => {
+      //       this.showError = false;
+      //     }, 1500);
+      //     return;
+      //   }
+      //   LoginService.register(this.email, this.username, this.password);
+      // }
     },
   },
 };

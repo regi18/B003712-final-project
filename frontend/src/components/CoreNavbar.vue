@@ -118,10 +118,15 @@ export default {
           icon: 'fas fa-user',
           url: '/logout',
           children: [
+            // {
+            //   title: 'Account',
+            //   url: '/user',
+            //   icon: 'fas fa-user',
+            // },
             {
-              title: 'Account',
-              url: '/user',
-              icon: 'fas fa-user',
+              title: 'Admin',
+              url: '/admin',
+              icon: 'fas fa-cog',
             },
             {
               title: 'Logout',

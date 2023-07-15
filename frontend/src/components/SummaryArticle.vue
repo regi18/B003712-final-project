@@ -7,13 +7,13 @@
 
     <p class="article-content">{{ removeMd(article.content) }}</p>
 
-    <div class="actions">
-      <span class="action-item">
+    <div class="tags">
+      <!-- <span class="tags-item">
         <i class="fa fa-folder"></i>
         <span>{{ article.section }}</span>
-      </span>
+      </span> -->
 
-      <span class="action-item">
+      <span class="tags-item">
         <i class="fa fa-tag"></i>
         <span>Issue No. {{ article.issueNumber }}</span>
       </span>
@@ -79,7 +79,7 @@ p.article-content {
   margin-top: 2em;
 }
 
-.actions {
+.tags {
   font-size: 0.8rem;
   color: #595959;
 

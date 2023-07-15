@@ -31,13 +31,14 @@
 import type { CoreEditorTemplateItem } from '@/interfaces/CoreEditor';
 import CoreEditListItem from './CoreEditListItem.vue';
 import type { PropType } from 'vue';
+import { post, put, remove } from '@/services/AjaxService';
 
 export default {
   name: 'core-crud-list',
   components: {
     CoreEditListItem,
   },
-  emits: ['deleteItem', 'saveItem'],
+  emits: ['deleteItem', 'saveItem', 'error'],
   props: {
     items: {
       type: Array as PropType<any[]>,
@@ -55,6 +56,10 @@ export default {
       type: Array as PropType<CoreEditorTemplateItem[]>,
       required: true,
     },
+    apiBaseUrl: {
+      type: String,
+      required: true,
+    },
   },
   data() {
     return {
@@ -63,17 +68,40 @@ export default {
   },
   methods: {
     addNew() {
-      this.editItem = {isNew: true};
+      this.editItem = { isNew: true };
     },
     onEdit(item: any) {
       this.editItem = JSON.parse(JSON.stringify(item));
     },
-    onDelete(item: any) {
-      if (confirm('Are you sure you want to delete this item?')) this.$emit('deleteItem', item);
+    async onDelete(item: any) {
+      if (!confirm('Are you sure you want to delete this item?')) return;
+
+      try {
+        // Delete item
+        await remove(this.apiBaseUrl + '/' + item.slug ?? item.id);
+        this.$emit('deleteItem', item);
+      }
+      catch (e: any) {
+        this.$emit('error', e.errors);
+      }
     },
-    onSave(item: any) {
-      this.$emit('saveItem', item);
-      this.editItem = null;
+    async onSave(item: any) {
+      try {
+        if (item.isNew) {
+          // Create item
+          await post(this.apiBaseUrl, item);
+        } 
+        else {
+          // Update
+          await put(this.apiBaseUrl + '/' + item.slug ?? item.id, item);
+        }
+
+        this.$emit('saveItem', item);
+        this.editItem = null;
+      }
+      catch (e: any) {
+        this.$emit('error', e.errors);
+      }
     },
   },
 };

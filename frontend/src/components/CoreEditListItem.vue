@@ -7,6 +7,8 @@
 
       <div class="spacer"></div>
 
+      <p class="error" v-if="errorMsg">{{ errorMsg }}</p>
+
       <button @click="onSave()" :disabled="loading">
         <i class="fas fa-save"></i>
       </button>
@@ -14,10 +16,16 @@
 
     <main>
       <div class="field" v-for="t of template" :key="t.key">
-        <label :for="t.key">{{ t.title }}</label>
+        <label :for="t.key">{{ t.title }}{{ t.required ? '*' : '' }}</label>
 
         <!-- Input -->
-        <input type="text" :id="t.key" v-model="editItem[t.key]" v-if="t.type === 'input'" />
+        <input
+          type="text"
+          :id="t.key"
+          v-model="editItem[t.key]"
+          v-if="t.type === 'input'"
+          :disabled="!editItem?.isNew && (t.key === 'slug' || t.key === 'id')"
+        />
 
         <!-- Number -->
         <input type="number" :id="t.key" v-model="editItem[t.key]" v-if="t.type === 'number'" />
@@ -70,13 +78,25 @@ export default {
     return {
       editItem: null as any,
       loading: false,
+      errorMsg: null as string | null,
     };
   },
   methods: {
+    error(message: string) {
+      this.errorMsg = message;
+      setTimeout(() => (this.errorMsg = null), 3500);
+    },
     onCancel() {
       this.$emit('cancel', null);
     },
     onSave() {
+      for (const t of this.template) {
+        if (t.required && !this.editItem[t.key]) {
+          this.error('Please fill all required fields.');
+          return;
+        }
+      }
+
       this.$emit('save', this.item);
     },
     readFile(event: any, templateKey: string) {
@@ -119,5 +139,12 @@ main {
       font-size: 0.85em;
     }
   }
+}
+
+.error {
+  color: red;
+  margin-top: 0 !important;
+  line-height: 1.8em;
+  margin-right: 0.5em;
 }
 </style>

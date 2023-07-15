@@ -20,22 +20,24 @@ function makeUrl(url: string, params?: Params): URL {
 async function request(method: Methods, url: string, params?: Params, body?: Record<string, any>): Promise<Response> {
   let data: any = { method };
 
+  const token = localStorage.getItem('token');
+  if (token) data = { ...data, headers: { Authorization: 'Token ' + token } };
+
   if ((method === 'POST' || method === 'PUT') && !!body) {
     data = {
       ...data,
       headers: {
-        'Content-Type': 'application/json',
+        ...data.headers,
+        'Content-Type': 'application/json' 
       },
       body: JSON.stringify(body),
     };
   }
 
-  console.log(method, data, body);
-
   const res = await fetch(makeUrl(url, params), data);
 
-  if (!res.ok) throw new Error(res.statusText);
-  if (res.status === 204) return {};
+  if (!res.ok) throw { status: res.status, statusText: res.statusText, errors: await res.json() };
+  else if (res.status === 204) return {};
   else return res.json();
 }
 

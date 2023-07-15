@@ -1,7 +1,22 @@
-export interface CoreEditorTemplateItem {
-    type: 'input' | 'textarea' | 'file' | 'number' | 'select';
+export type CoreEditorTemplateItem = CoreEditorTemplateItemInput | CoreEditorTemplateItemFile | CoreEditorTemplateSelectFile;
+
+interface CoreEditorTemplateItemBase {
+    type: string;
     title: string;
     key: string;
-    mime?: string; // Only for type: 'file'
-    options?: { key: string | number; title: string; }[]; // Only for type: 'select'
+    required?: boolean;
+}
+
+interface CoreEditorTemplateItemInput extends CoreEditorTemplateItemBase {
+    type: 'input' | 'number' | 'textarea';
+}
+
+interface CoreEditorTemplateItemFile extends CoreEditorTemplateItemBase {
+    type: 'file';
+    mime?: string;
+}
+
+interface CoreEditorTemplateSelectFile extends CoreEditorTemplateItemBase {
+    type: 'select';
+    options?: { key: string | number; title: string; }[];
 }

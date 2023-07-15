@@ -1,7 +1,10 @@
+import { post, get } from "./AjaxService";
+
 export default class LoginService {
-  static login(username: string, password: string) {
-    console.log('login');
-    localStorage.setItem('token', '1234567890');
+  static async login(username: string, password: string) {
+    const res = await post('/login', { username, password });
+    localStorage.setItem('token', res?.token);
+
     window.location.href = '/user';
   }
 
@@ -11,5 +14,11 @@ export default class LoginService {
 
   static isLoggedIn() {
     return localStorage.getItem('token') !== null;
+  }
+
+  static async logout() {
+    await get('/logout');
+    localStorage.removeItem('token');
+    window.location.href = '/';
   }
 }

@@ -23,14 +23,15 @@
           </div>
         </form>
 
-        <span class="error" v-if="showError">Passwords do not match</span>
+        <!-- <span class="error" v-if="showError">Passwords do not match</span> -->
+        <span class="error" v-if="error">{{ error }}</span>
 
-        <a class="register-link" @click="isLogin = !isLogin">
+        <!-- <a class="register-link" @click="isLogin = !isLogin">
           {{ isLogin ? 'Not yet registered? Click Here' : 'Already registered?' }}
-        </a>
+        </a> -->
       </div>
 
-      <a class="button" @click="go()">
+      <a class="button" @click="go()" @keypress.enter="go()">
         {{ isLogin ? 'Login' : 'Register' }}
       </a>
     </div>
@@ -49,6 +50,7 @@ export default {
       email: '',
       repeatPassword: '',
       showError: false,
+      error: '',
     };
   },
   created() {
@@ -57,11 +59,16 @@ export default {
     }
   },
   methods: {
-    go() {
+    async go() {
       // Login
       if (this.isLogin) {
-        console.log('TODO');
-        LoginService.login(this.username, this.password);
+        try {
+          await LoginService.login(this.username, this.password);
+        }
+        catch (err: any) {
+          this.error = err?.errors?.message;
+          setTimeout(() => { this.error = ''; }, 2000);
+        }
       }
       // Register new user
       else {
@@ -102,7 +109,7 @@ form {
 }
 
 .button {
-  margin-top: 3em;
+  margin-top: 2em;
 }
 
 .container {

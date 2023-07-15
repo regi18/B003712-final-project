@@ -6,7 +6,7 @@
 
     <div class="wrapper">
       <template v-if="isAdmin">
-        <h2 class="align-left" style="font-size: 1.2em">It looks like you can do more!</h2>
+        <!-- <h2 class="align-left" style="font-size: 1.2em">It looks like you can do more!</h2> -->
         <router-link to="/admin">Click here for the administration panel</router-link>
         <div class="spacer"></div>
       </template>

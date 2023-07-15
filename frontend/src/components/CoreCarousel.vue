@@ -165,6 +165,8 @@ export default {
 
     h2 {
       margin-bottom: 1em;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     p {

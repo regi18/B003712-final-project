@@ -11,6 +11,8 @@
     <div class="articles-wrapper" v-else>
       <article class="article" v-for="item of items" :key="item.slug">
         <h2>{{ item.title }}</h2>
+        <div class="description">{{ makeSubtitle(item) }}</div>
+
         <p>{{ removeMd(item.content) }}</p>
         <router-link :to="item.section + '/' + item.slug" class="button">Read More</router-link>
       </article>
@@ -41,6 +43,11 @@ export default {
     removeMd(e: any) {
       return removeMd(e);
     },
+    makeSubtitle(a: Article) {
+      if (!a) return '';
+      const d = Intl.DateTimeFormat('en-Us', { weekday: 'short', month: 'long', day: 'numeric' }).format(Date.parse(a.date));
+      return `${a.author} | ${d}`;
+    },
   },
 };
 </script>
@@ -48,28 +55,36 @@ export default {
 <style lang="scss" scoped>
 h2 {
   font-size: 30px;
-  margin-bottom: 20px;
   line-height: 1.2em;
   font-weight: 300;
   text-transform: none;
   text-align: left;
   padding-top: 1em;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   @include mobile {
     font-size: 25px;
   }
 }
 
+.description {
+  font-size: 65%;
+  color: rgba(0, 0, 0, 0.5);
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
 .articles-wrapper {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 3em;
 
   @include mobile {
     grid-template-columns: 1fr;
   }
   @include tablet {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   p {

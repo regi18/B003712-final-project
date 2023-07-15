@@ -21,11 +21,4 @@ export default class TheResearchJournalService {
 
     return articles;
   }
-
-  
-  // TODO Content is markdown and should be converted to HTML in the component.
-  // TODO this method is the same as getArticle() in ArticlesService.ts
-  static async getArticle(slug: string): Promise<Article> {
-    return get(`articles/${slug}`);
-  }
 }

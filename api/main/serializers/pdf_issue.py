@@ -17,7 +17,7 @@ class PDFBase64File(Base64FileField):
 
 
 class PdfIssueSerializer(serializers.ModelSerializer):
-    pdf = PDFBase64File()
+    pdf = PDFBase64File(required=False)
 
     class Meta:
         model = PdfIssue

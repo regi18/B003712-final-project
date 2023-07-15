@@ -73,6 +73,15 @@ export default {
   },
   created() {
     this.editItem = this.item;
+
+    // Remove file fields if not new, because they now contain the file url. The endpoint expects the base64 data.
+    if (this.item && this.template && !this.item?.isNew) {
+      for (const t of this.template) {
+        if (t.type === 'file') {
+          delete this.editItem[t.key]
+        }
+      }
+    }
   },
   data() {
     return {
@@ -91,7 +100,9 @@ export default {
     },
     onSave() {
       for (const t of this.template) {
-        if (t.required && !this.editItem[t.key]) {
+        // Check if required fields are filled.
+        // One exception: If the item is not new, the file fields are not required (same process as in created()).
+        if (t.required && !this.editItem[t.key] && !(!this.item?.isNew && t.type === 'file')) {
           this.error('Please fill all required fields.');
           return;
         }

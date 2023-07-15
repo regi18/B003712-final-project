@@ -102,6 +102,8 @@ export default {
           this.errors.push(key + ": " + errors[key]);
         }
       }
+
+      setTimeout(() => { this.errors = null; }, 5000);
     },
   },
   data() {

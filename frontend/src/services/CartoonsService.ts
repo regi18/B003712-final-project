@@ -1,6 +1,7 @@
 import { get } from './AjaxService';
 
 export interface CartoonItem {
+  id: number;
   src: string;
   caption: string;
 }

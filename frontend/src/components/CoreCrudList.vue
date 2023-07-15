@@ -78,7 +78,7 @@ export default {
 
       try {
         // Delete item
-        await remove(this.apiBaseUrl + '/' + item.slug ?? item.id);
+        await remove(this.apiBaseUrl + '/' + (item.slug ?? item.id));
         this.$emit('deleteItem', item);
       }
       catch (e: any) {
@@ -93,7 +93,7 @@ export default {
         } 
         else {
           // Update
-          await put(this.apiBaseUrl + '/' + item.slug ?? item.id, item);
+          await put(this.apiBaseUrl + '/' + (item.slug ?? item.id), item);
         }
 
         this.$emit('saveItem', item);

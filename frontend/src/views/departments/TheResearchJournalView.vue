@@ -11,7 +11,7 @@
     <div class="articles-wrapper" v-else>
       <article class="article" v-for="item of items" :key="item.slug">
         <h2>{{ item.title }}</h2>
-        <p>{{ item.content }}</p>
+        <p>{{ removeMd(item.content) }}</p>
         <router-link :to="item.section + '/' + item.slug" class="button">Read More</router-link>
       </article>
     </div>
@@ -22,6 +22,7 @@
 import type { Article } from '@/services/ArticlesService';
 import TheResearchJournalService from '@/services/TheResearchJournalService';
 import { RouterLink } from 'vue-router';
+import removeMd from 'remove-markdown';
 
 export default {
   name: 'TheResearchJournalView',
@@ -35,6 +36,11 @@ export default {
     return {
       items: null as Article[] | null,
     };
+  },
+  methods: {
+    removeMd(e: any) {
+      return removeMd(e);
+    },
   },
 };
 </script>

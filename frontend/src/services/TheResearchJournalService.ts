@@ -1,5 +1,6 @@
 import { get } from './AjaxService';
 import type { Article } from './ArticlesService';
+import removeMd from 'remove-markdown';
 
 
 export default class TheResearchJournalService {
@@ -15,7 +16,9 @@ export default class TheResearchJournalService {
     articles.forEach((a) => { 
       // Create titles from dates
       a.title = Intl.DateTimeFormat('en-Us', { weekday: 'short', month, day: 'numeric' }).format(Date.parse(a.date)) 
+
       // Create abstracts from content
+      a.content = removeMd(a.content);
       a.content = a.content.split(' ').slice(0, 50).join(' ') + '...';
     });
 

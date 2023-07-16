@@ -102,9 +102,9 @@ export default {
 
           &:hover {
             @include notMobile {
-            color: #ffffff;
-            background-color: #303030;
-          }
+              color: #ffffff;
+              background-color: #303030;
+            }
           }
         }
 
@@ -178,9 +178,9 @@ export default {
     list-style: none;
     padding: 0;
     background-color: #4f4f4f;
-    
+
     @media (min-width: #{$mobile-breakpoint + 1}) {
-      width: 200px;
+      // width: 200px;
       position: absolute;
       left: -99999px;
       opacity: 0;
@@ -193,6 +193,13 @@ export default {
       overflow: hidden;
     }
     @include mobile {
+      a {
+        max-width: 100vw;
+        box-sizing: border-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
       display: none;
     }
 

@@ -95,7 +95,7 @@ export default {
   methods: {
     onInputChanged(key: string) {
       // If the title is changed, also change the slug.
-      if (key === 'title') {
+      if (key === 'title' && this.editItem?.isNew) {
         this.editItem.slug = this.editItem.title
           .toLowerCase()
           .replace(/[^a-z0-9]+/g, '-')

@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     removeMd(e: any) {
-      return removeMd(e).split(' ').slice(0, 100).join(' ') + '...';
+      return removeMd(e);
     },
     getSectionTitle(a: SummaryArticle) {
       return this.sections?.[a.section]?.title ?? a.section;

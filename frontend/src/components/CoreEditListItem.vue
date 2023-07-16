@@ -24,6 +24,7 @@
           :id="t.key"
           v-model="editItem[t.key]"
           v-if="t.type === 'input'"
+          @input="onInputChanged(t.key)"
           :disabled="!editItem?.isNew && (t.key === 'slug' || t.key === 'id')"
         />
 
@@ -92,6 +93,15 @@ export default {
     };
   },
   methods: {
+    onInputChanged(key: string) {
+      // If the title is changed, also change the slug.
+      if (key === 'title') {
+        this.editItem.slug = this.editItem.title
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/(^-|-$)+/g, '');
+      }
+    },
     error(message: string) {
       this.errorMsg = message;
       setTimeout(() => (this.errorMsg = null), 3500);

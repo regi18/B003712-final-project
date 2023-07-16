@@ -157,7 +157,16 @@ export default {
       flex-direction: column;
 
       .title {
-        max-width: 170px;
+        max-width: 30vw;
+
+        @include mobile {
+          max-width: 50vw;
+        }
+
+        @include tablet {
+          max-width: 50vw;
+        }
+
         overflow: hidden;
         text-overflow: ellipsis;
       }

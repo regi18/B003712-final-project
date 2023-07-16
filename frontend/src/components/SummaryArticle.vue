@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     removeMd(e: any) {
-      return removeMd(e);
+      return removeMd(e).split(' ').slice(0, 100).join(' ') + '...';
     },
     getSectionTitle(a: SummaryArticle) {
       return this.sections?.[a.section]?.title ?? a.section;
@@ -82,7 +82,7 @@ img {
 p.article-content {
   margin: 0;
   margin-top: 1em;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 }
 
 .button {

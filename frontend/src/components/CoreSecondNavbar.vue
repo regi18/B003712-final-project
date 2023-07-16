@@ -101,8 +101,10 @@ export default {
           white-space: nowrap;
 
           &:hover {
+            @include notMobile {
             color: #ffffff;
             background-color: #303030;
+          }
           }
         }
 
@@ -162,8 +164,8 @@ export default {
   }
 
   .router-link-exact-active {
-    color: #222222;
-    background-color: #ffffff;
+    color: #222222 !important;
+    background-color: #ffffff !important;
 
     &:hover {
       color: #222222 !important;

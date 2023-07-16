@@ -6,3 +6,5 @@ django-cors-headers
 Pillow
 drf-extra-fields
 PyPDF2
+gunicorn
+dj-database-url

@@ -149,6 +149,9 @@ main {
     input.file-upload {
       margin-top: 0.3em;
       font-size: 0.85em;
+    }
+
+    select, input {
       width: 100%;
     }
   }

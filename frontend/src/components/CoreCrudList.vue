@@ -80,8 +80,7 @@ export default {
         // Delete item
         await remove(this.apiBaseUrl + '/' + (item.slug ?? item.id));
         this.$emit('deleteItem', item);
-      }
-      catch (e: any) {
+      } catch (e: any) {
         this.$emit('error', e.errors);
       }
     },
@@ -90,16 +89,14 @@ export default {
         if (item.isNew) {
           // Create item
           await post(this.apiBaseUrl, item);
-        } 
-        else {
+        } else {
           // Update
           await put(this.apiBaseUrl + '/' + (item.slug ?? item.id), item);
         }
 
         this.$emit('saveItem', item);
         this.editItem = null;
-      }
-      catch (e: any) {
+      } catch (e: any) {
         this.$emit('error', e.errors);
       }
     },
@@ -158,6 +155,12 @@ export default {
     .left {
       display: flex;
       flex-direction: column;
+
+      .title {
+        max-width: 170px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
 
       .subtitle {
         font-size: 0.8em;

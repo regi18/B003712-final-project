@@ -197,6 +197,11 @@ export default {
           color: #ffffff;
           padding: 10px 20px;
           line-height: normal;
+          justify-content: flex-start;
+
+          i {
+            margin-right: 1em !important;
+          }
 
           &:hover {
             background-color: #4f4f4f;
@@ -229,6 +234,10 @@ export default {
           }
         }
 
+        & > a {
+          height: 60px;
+        }
+
         @include mobile {
           ul.sub-menu.is-open {
             display: block;
@@ -236,19 +245,21 @@ export default {
         }
 
         // Show sub-menu on hover
-        &:hover {
-          a {
-            color: #ffffff;
-            background-color: #3f3f3f;
-          }
+        @include notMobile {
+          &:hover {
+            a {
+              color: #ffffff;
+              background-color: #3f3f3f;
+            }
 
-          ul.sub-menu {
-            left: auto;
-            opacity: 1;
-            transition-delay: 150ms;
-            pointer-events: auto;
-            height: auto;
-            overflow: visible;
+            ul.sub-menu {
+              left: auto;
+              opacity: 1;
+              transition-delay: 150ms;
+              pointer-events: auto;
+              height: auto;
+              overflow: visible;
+            }
           }
         }
       }

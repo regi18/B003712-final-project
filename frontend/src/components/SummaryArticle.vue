@@ -8,10 +8,10 @@
     <p class="article-content">{{ removeMd(article.content) }}</p>
 
     <div class="tags">
-      <!-- <span class="tags-item">
+      <span class="tags-item" v-if="showSection">
         <i class="fa fa-folder"></i>
-        <span>{{ article.section }}</span>
-      </span> -->
+        <span>{{ getSectionTitle(article) }}</span>
+      </span>
 
       <span class="tags-item">
         <i class="fa fa-tag"></i>
@@ -35,10 +35,21 @@ export default {
       type: Object as PropType<SummaryArticle>,
       required: true,
     },
+    showSection: {
+      type: Boolean,
+      default: false,
+    },
+    sections: {
+      type: Object,
+      default: null,
+    },
   },
   methods: {
     removeMd(e: any) {
       return removeMd(e);
+    },
+    getSectionTitle(a: SummaryArticle) {
+      return this.sections?.[a.section]?.title ?? a.section;
     },
   },
 };

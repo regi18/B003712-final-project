@@ -7,11 +7,13 @@
     <template v-else>
       <!-- Make first article bigger -->
       <article class="first-article">
-        <SummaryArticle :article="items[0]" />
+        <SummaryArticle :article="items[0]" :showSection="!section" />
       </article>
 
       <div class="articles-wrapper">
-        <SummaryArticle v-for="(item, index) of items" :key="item.url" :article="item" v-if="index !== 0" />
+        <template v-for="(item, index) of items" :key="item.url">
+          <SummaryArticle :article="item" v-if="index !== 0" :showSection="!section" :sections="sections" />
+        </template>
       </div>
     </template>
   </div>
@@ -35,12 +37,21 @@ export default {
       this.items = null;
       this.section = this.$route.params.section as string;
 
-      try {
-        let s = await get('sections/' + this.section);
-        this.sectionTitle = s.title;
-      } catch (e) {
-        // Error, section not found
-        this.$router.push({ path: '/404' });
+      if (this.section !== 'all') {
+        try {
+          let s = await get('sections/' + this.section);
+          this.sectionTitle = s.title;
+        } catch (e) {
+          // Error, section not found
+          this.$router.push({ path: '/404' });
+        }
+      } 
+      else {
+        this.sectionTitle = 'All Articles';
+        this.section = undefined;
+        this.sections = await get('sections').then((e) =>
+          e.reduce((a: any, v: any) => ({ ...a, [v.slug]: v }), {})
+        );
       }
 
       ArticlesService.getAll(null, this.section).then((res) => (this.items = res));
@@ -54,8 +65,9 @@ export default {
   data() {
     return {
       items: null as SummaryArticle[] | null,
-      section: '',
+      section: '' as string | undefined,
       sectionTitle: '',
+      sections: null as any,
     };
   },
 };

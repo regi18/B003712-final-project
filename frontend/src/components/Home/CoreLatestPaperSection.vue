@@ -36,7 +36,7 @@ export default {
     RouterLink,
   },
   created() {
-    ArticlesService.getAll(4).then((res) => {
+    ArticlesService.getAll(4, 'staff-articles').then((res) => {
       this.articles = res;
     });
   },

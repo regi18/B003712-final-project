@@ -30,7 +30,7 @@ export default class ArticlesService {
    * @param limit The number of latest articles to return (if null, it will return all).
    * @returns A promise that resolves to an array of SummaryArticle objects.
    */
-  static async getAll(limit: number | null = null, section = 'staff-articles'): Promise<SummaryArticle[]> {
+  static async getAll(limit: number | null = null, section: string | null = null): Promise<SummaryArticle[]> {
     const articles = await get('articles', { limit, section });
     return articles.map((a: any) => {
       return { ...a, subtitle: ArticlesService.makeSubtitle(a.date, a.author), url: `/sections/${a.section}/${a.slug}` };

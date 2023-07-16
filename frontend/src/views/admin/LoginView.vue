@@ -64,8 +64,7 @@ export default {
       // if (this.isLogin) {
       try {
         await LoginService.login(this.username, this.password);
-      }
-      catch (err: any) {
+      } catch (err: any) {
         this.error = err?.errors?.message;
         setTimeout(() => {
           this.error = '';
@@ -93,11 +92,12 @@ form {
   display: table;
   padding-top: 20px;
 }
-.form-group {
-  padding: 2em 0;
-  display: table-row;
 
-  @include notMobile {
+@include notMobile {
+  .form-group {
+    padding: 2em 0;
+    display: table-row;
+
     label,
     input {
       display: table-cell;
@@ -106,6 +106,18 @@ form {
 
     label {
       padding-right: 30px;
+    }
+  }
+}
+
+@include mobile {
+  form {
+    display: flex;
+    flex-direction: column;
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
     }
   }
 }

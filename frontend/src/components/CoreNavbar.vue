@@ -301,9 +301,12 @@ export default {
       }
     }
   }
-  .router-link-exact-active {
-    color: #ffffff !important;
-    background-color: #3f3f3f;
+
+  @include notMobile {
+    .router-link-exact-active {
+      color: #ffffff !important;
+      background-color: #3f3f3f;
+    }
   }
 }
 </style>

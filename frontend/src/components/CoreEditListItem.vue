@@ -79,7 +79,7 @@ export default {
     if (this.item && this.template && !this.item?.isNew) {
       for (const t of this.template) {
         if (t.type === 'file') {
-          delete this.editItem[t.key]
+          delete this.editItem[t.key];
         }
       }
     }
@@ -149,6 +149,7 @@ main {
     input.file-upload {
       margin-top: 0.3em;
       font-size: 0.85em;
+      width: 100%;
     }
   }
 }

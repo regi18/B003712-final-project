@@ -8,3 +8,4 @@ drf-extra-fields
 PyPDF2
 gunicorn
 dj-database-url
+whitenoise

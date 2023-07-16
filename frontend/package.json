@@ -12,6 +12,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@kangc/v-md-editor": "^2.3.15",
     "remove-markdown": "^0.5.0",
     "sass": "^1.63.4",
     "vue": "^3.3.4",

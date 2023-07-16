@@ -31,7 +31,8 @@
         <input type="number" :id="t.key" v-model="editItem[t.key]" v-if="t.type === 'number'" />
 
         <!-- Textarea -->
-        <textarea id="content" rows="10" v-model="editItem[t.key]" v-else-if="t.type === 'textarea'"></textarea>
+        <!-- <textarea id="content" rows="10" v-model="editItem[t.key]" v-else-if="t.type === 'textarea'"></textarea> -->
+        <v-md-editor v-model="editItem[t.key]" height="400px" v-else-if="t.type === 'textarea'"></v-md-editor>
 
         <!-- Select -->
         <select v-model="editItem[t.key]" v-if="t.type === 'select'">
@@ -157,5 +158,9 @@ main {
   margin-top: 0 !important;
   line-height: 1.8em;
   margin-right: 0.5em;
+}
+
+:deep(.vuepress-markdown-body) {
+  font-family: 'Playfair Display' !important;
 }
 </style>

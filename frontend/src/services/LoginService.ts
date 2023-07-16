@@ -8,10 +8,6 @@ export default class LoginService {
     window.location.href = '/admin';
   }
 
-  // static register(email: string, username: string, password: string) {
-  //   console.log('register');
-  // }
-
   static isLoggedIn() {
     return localStorage.getItem('token') !== null;
   }

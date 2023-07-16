@@ -11,10 +11,12 @@
         <p>
           Here you can download the latest issue of the Gazette.<br />
           It puts together all the best articles from the last month ({{ dateNoDay }}).<br />
-          To download this issue of our paper, <a class="click-here" @click="downloadPaper">click here</a> or on the image.<br />
+          To download this issue of our paper, <a class="click-here" :href="url" target="_blank">click here</a> or on the image.<br />
           To download older papers, explore our <a class="click-here" href="/archives">archive</a>.
         </p>
-        <img src="@/assets/img/front-page.png" alt="Gazette Front Page" @click="downloadPaper()" />
+        <a :href="url" target="_blank">
+          <img src="@/assets/img/front-page.png" alt="Gazette Front Page" />
+        </a>
       </div>
     </div>
 
@@ -49,11 +51,6 @@ export default {
       url: '',
       issueNumber: 0,
     };
-  },
-  methods: {
-    downloadPaper() {
-      window.open(this.url, '_blank');
-    },
   },
 };
 </script>

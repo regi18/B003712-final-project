@@ -21,4 +21,7 @@ def getLatestPdfIssue(response):
         items = PdfIssue.objects.latest('createdAt')
     except:
         items = []
-    return Response(PdfIssueSerializer(items).data)
+
+    d = PdfIssueSerializer(items).data
+    d['pdf'] = response.build_absolute_uri(d['pdf'])
+    return Response(d)

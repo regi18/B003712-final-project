@@ -8,7 +8,7 @@ urlpatterns = [
 
     path('downloads/latest/', downloads_view.getLatestPdfIssue),
     path('downloads/', downloads_view.DownloadsView.as_view()),
-    path('downloads/<int:pk>', downloads_view.DownloadDetailView.as_view()),
+    path('downloads/<int:pk>/', downloads_view.DownloadDetailView.as_view()),
 
     path('sections/', sections_view.SectionsView.as_view()),
     path('sections/<pk>/', sections_view.SectionDetailView.as_view()),

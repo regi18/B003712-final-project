@@ -49,7 +49,7 @@ export default {
 .article-title {
   font-size: 40px;
   font-weight: bold;
-  line-height: 0.8em;
+  line-height: 1.1em;
   text-transform: none;
   text-align: left;
   margin-bottom: 0.1em;
@@ -70,15 +70,15 @@ img {
   margin-bottom: 1em;
 }
 
-:deep(p) {
-  margin-top: 1.3em !important;
+// :deep(p) {
+//   margin-top: 1.3em !important;
 
-  &::first-letter {
-    initial-letter: 2 !important;
-    line-height: 53px;
-    padding-top: 10px;
-    padding-right: 13px;
-    padding-left: 4px;
-  }
-}
+//   &:first-child::first-letter {
+//     initial-letter: 2 !important;
+//     line-height: 53px;
+//     padding-top: 10px;
+//     padding-right: 13px;
+//     padding-left: 4px;
+//   }
+// }
 </style>

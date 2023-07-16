@@ -7,7 +7,7 @@
     <template v-else>
       <!-- Make first article bigger -->
       <article class="first-article">
-        <SummaryArticle :article="items[0]" :showSection="!section" />
+        <SummaryArticle :article="items[0]" :showSection="!section" :sections="sections" />
       </article>
 
       <div class="articles-wrapper">
@@ -45,16 +45,13 @@ export default {
           // Error, section not found
           this.$router.push({ path: '/404' });
         }
-      } 
-      else {
+      } else {
         this.sectionTitle = 'All Articles';
         this.section = undefined;
-        this.sections = await get('sections').then((e) =>
-          e.reduce((a: any, v: any) => ({ ...a, [v.slug]: v }), {})
-        );
+        this.sections = await get('sections').then((e) => e.reduce((a: any, v: any) => ({ ...a, [v.slug]: v }), {}));
       }
 
-      ArticlesService.getAll(null, this.section).then((res) => (this.items = res));
+      this.items = await ArticlesService.getAll(null, this.section);
     },
   },
   watch: {

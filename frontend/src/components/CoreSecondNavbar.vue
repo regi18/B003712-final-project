@@ -12,6 +12,19 @@
         <li class="menu-item" v-for="e of menuItems" :key="e.url">
           <router-link :to="'/sections/' + e.url">{{ e.title }}</router-link>
         </li>
+
+        <li class="menu-item">
+          <a @click="toggleSubMenu($event)">
+            Other Departments
+            <i ref="topNavSubMenuArrow" class="fas fa-angle-down arrow-down"></i>
+          </a>
+
+          <ul class="sub-menu" ref="sub-menu">
+            <li class="sub-menu-item" v-for="c of otherItems" :key="c.url">
+              <router-link :to="c.url">{{ c.title }}</router-link>
+            </li>
+          </ul>
+        </li>
       </ul>
     </div>
   </nav>
@@ -23,6 +36,7 @@ import { RouterLink } from 'vue-router';
 
 export default {
   name: 'core-second-navbar',
+  inject: ['currentScreenSize'],
   components: {
     RouterLink,
   },
@@ -31,11 +45,17 @@ export default {
     let s: any[] = await get('sections');
     s = s.map((e: any) => ({ url: e.slug, title: e.title }));
     s = s.sort((a: any, b: any) => a.title.localeCompare(b.title));
-    this.menuItems = [...s, ...this.menuItems];
+
+    console.log(s);
+
+    const main = s.filter((e: any) => ['staff-articles', 'the-research-journal'].includes(e.url));
+    this.otherItems = s.filter((e: any) => !['staff-articles', 'the-research-journal'].includes(e.url));
+    this.menuItems = [...main, ...this.menuItems];
   },
   data() {
     return {
       isMobileMenuOpen: false,
+      otherItems: [] as any[],
       // Static menu items
       menuItems: [
         // { url: '/staff-articles', title: 'Articles from Staff Members' },
@@ -44,6 +64,15 @@ export default {
         { url: 'non-political-cartoons', title: 'Non-Political Cartoons' },
       ],
     };
+  },
+  methods: {
+    toggleSubMenu(event: any) {
+      event.preventDefault();
+      if (this.currentScreenSize !== 'mobile') return;
+      this.$refs['sub-menu'].classList.toggle('is-open');
+      this.$refs['topNavSubMenuArrow'].classList.toggle('fa-angle-down');
+      this.$refs['topNavSubMenuArrow'].classList.toggle('fa-angle-up');
+    },
   },
 };
 </script>
@@ -82,6 +111,23 @@ export default {
           &:hover {
             color: #ffffff;
             background-color: #303030;
+          }
+        }
+
+        i.arrow-down {
+          padding-left: 0.5em;
+          font-size: 0.9em;
+        }
+
+        // Show sub-menu on hover
+        &:hover {
+          ul.sub-menu {
+            left: auto;
+            opacity: 1;
+            transition-delay: 150ms;
+            pointer-events: auto;
+            height: auto;
+            overflow: visible;
           }
         }
       }
@@ -130,6 +176,48 @@ export default {
     &:hover {
       color: #222222 !important;
       background-color: #ffffff !important;
+    }
+  }
+
+  // ---------- SUB MENU ----------
+  ul.sub-menu {
+    list-style: none;
+    padding: 0;
+    background-color: #4f4f4f;
+    
+    @media (min-width: #{$mobile-breakpoint + 1}) {
+      width: 200px;
+      position: absolute;
+      left: -99999px;
+      opacity: 0;
+      z-index: 99999;
+      top: auto;
+      transition: opacity 80ms linear;
+      transition-delay: 0s;
+      pointer-events: none;
+      height: 0;
+      overflow: hidden;
+    }
+    @include mobile {
+      display: none;
+    }
+
+    li.sub-menu-item a {
+      background-color: #3f3f3f;
+      font-size: 14px;
+      color: #ffffff;
+      padding: 0 20px;
+      line-height: normal;
+
+      &:hover {
+        background-color: #4f4f4f;
+      }
+    }
+
+    @include mobile {
+      &.is-open {
+        display: block;
+      }
     }
   }
 }

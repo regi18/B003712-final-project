@@ -26,7 +26,7 @@
 
     <div class="search-bar">
       <input type="search" v-model="searchText" placeholder="Search" />
-      <button class="button" @click="onSearch" @keyup.enter="onSearch">Search</button>
+      <!-- <button class="button" @click="onSearch" @keyup.enter="onSearch">Search</button> -->
     </div>
 
     <p v-if="!items">Loading...</p>
@@ -170,7 +170,7 @@ h1 {
   display: flex;
   gap: 1em;
   margin-bottom: 1.5em;
-  font-size: 0.9em;
+  // font-size: 0.9em;
 
   input {
     flex: 1;

@@ -10,7 +10,7 @@
 
       <ul class="secondary-menu" :class="{ 'is-open-mobile': isMobileMenuOpen }">
         <li class="menu-item" v-for="e of menuItems" :key="e.url">
-          <router-link :to="e.url">{{ e.title }}</router-link>
+          <router-link :to="e.url" @click="isMobileMenuOpen = false">{{ e.title }}</router-link>
         </li>
 
         <li class="menu-item">
@@ -21,7 +21,7 @@
 
           <ul class="sub-menu" ref="sub-menu">
             <li class="sub-menu-item" v-for="c of otherItems" :key="c.url">
-              <router-link :to="c.url">{{ c.title }}</router-link>
+              <router-link :to="c.url" @click="isMobileMenuOpen = false">{{ c.title }}</router-link>
             </li>
           </ul>
         </li>

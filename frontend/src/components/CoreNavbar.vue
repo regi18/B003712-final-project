@@ -25,7 +25,7 @@
         <!-- MENU ITEM -->
         <!--------------->
         <li class="menu-item" :class="e?.children?.length ? 'with-sub-menu' : ''" v-for="e of menuItems" :key="e.url">
-          <router-link :to="e.url" v-if="!e?.children?.length && (!e.if || e?.if())">
+          <router-link :to="e.url" @click="isMobileMenuOpen = false" v-if="!e?.children?.length && (!e.if || e?.if())">
             {{ e.title }}
             <i :class="e.icon" v-if="e.icon" style="margin-left: 0.3em"></i>
           </router-link>
@@ -47,7 +47,7 @@
 
             <ul class="sub-menu" :ref="e.url">
               <li class="sub-menu-item" v-for="c of e.children" :key="c.url">
-                <router-link :to="c.url">
+                <router-link @click="isMobileMenuOpen = false" :to="c.url">
                   <i :class="c.icon" v-if="c.icon" style="margin-right: 0.5em"></i>
                   {{ c.title }}
                 </router-link>

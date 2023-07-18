@@ -1,4 +1,4 @@
-const BASE_API_URL = 'http://' + window.location.hostname + ':8000';
+const BASE_API_URL = import.meta.env.VITE_API_URL as string;
 
 type Methods = 'GET' | 'POST' | 'PUT' | 'DELETE';
 type Params = Record<string, string | number | null> | undefined;

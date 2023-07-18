@@ -49,6 +49,10 @@ const router = createRouter({
       path: '/admin',
       name: 'admin',
       component: () => import('../views/admin/AdminView.vue'),
+      beforeEnter: (to, from) => {
+        if (LoginService.isLoggedIn()) return true;
+        else return '/login';
+      },
     },
     {
       path: '/logout',

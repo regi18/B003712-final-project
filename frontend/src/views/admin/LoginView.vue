@@ -64,7 +64,8 @@ export default {
       // if (this.isLogin) {
       try {
         await LoginService.login(this.username, this.password);
-      } catch (err: any) {
+      }
+       catch (err: any) {
         this.error = err?.errors?.message;
         setTimeout(() => {
           this.error = '';

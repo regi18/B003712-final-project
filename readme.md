@@ -1,5 +1,5 @@
 # Deploy api
-`git subtree split --branch deploy-api --prefix api/`
+`git subtree push --prefix api/ origin deploy-api`
 
 # Deploy frontend
 ```

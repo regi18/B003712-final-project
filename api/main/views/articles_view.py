@@ -13,6 +13,10 @@ class ArticlesView(generics.ListCreateAPIView):
         # Filter by section
         if self.request.query_params.get('section'):
             queryset = queryset.filter(section=self.request.query_params.get('section'))
+
+        # Filter by issueNumber
+        if self.request.query_params.get('issueNumber'):
+            queryset = queryset.filter(issueNumber=self.request.query_params.get('issueNumber'))
         
         # Limit the number of results
         if self.request.query_params.get('limit'):

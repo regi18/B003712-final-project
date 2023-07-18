@@ -64,30 +64,29 @@ const router = createRouter({
       },
     },
     {
-      path: '/sections',
-      name: 'sections',
-      children: [
-        {
-          path: 'non-political-cartoons',
-          name: 'non-political-cartoons',
-          component: () => import('../views/departments/NonPoliticalCartoonsView.vue'),
-        },
-        {
-          path: 'the-research-journal',
-          name: 'the-research-journal',
-          component: () => import('../views/departments/TheResearchJournalView.vue'),
-        },
-        {
-          path: ':section',
-          name: 'general-section',
-          component: () => import('../views/departments/ArticlesView.vue'),
-        },
-      ],
+      path: '/sections/non-political-cartoons',
+      name: 'non-political-cartoons',
+      component: () => import('../views/departments/NonPoliticalCartoonsView.vue'),
+    },
+    {
+      path: '/sections/the-research-journal',
+      name: 'the-research-journal',
+      component: () => import('../views/departments/TheResearchJournalView.vue'),
+    },
+    {
+      path: '/sections/:section',
+      name: 'general-section',
+      component: () => import('../views/departments/ArticlesView.vue'),
     },
     {
       path: '/sections/:section/:slug',
       name: 'article',
       component: () => import('../views/departments/ArticleView.vue'),
+    },
+    {
+      path: '/issues/:issue',
+      name: 'articles-by-issue',
+      component: () => import('../views/departments/ArticlesView.vue'),
     },
     { path: '/:pathMatch(.*)*', name: 'NotFound', redirect: '/404' },
   ],

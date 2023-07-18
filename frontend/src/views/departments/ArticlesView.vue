@@ -1,6 +1,10 @@
 <template>
   <div class="staff-articles container">
     <h1>{{ sectionTitle }}</h1>
+
+    <!-- <div class="filters">
+    </div> -->
+    
     <p v-if="!items">Loading...</p>
     <p v-else-if="items.length === 0">No articles found.</p>
 
@@ -36,22 +40,33 @@ export default {
     async load() {
       this.items = null;
       this.section = this.$route.params.section as string;
+      let issueNumber = null;
 
-      if (this.section !== 'all') {
+      // Show articles from the selected section
+      if (this.section && this.section !== 'all') {
         try {
           let s = await get('sections/' + this.section);
           this.sectionTitle = s.title;
-        } catch (e) {
+        }
+        catch (e) {
           // Error, section not found
           this.$router.push({ path: '/404' });
         }
-      } else {
+      }
+      // Show articles from the selected issue
+      else if (this.$route.name === 'articles-by-issue') {
+        this.sectionTitle = 'Issue No. ' + this.$route.params.issue;
+        this.section = undefined;
+        issueNumber = +this.$route.params.issue;
+      }
+      // Show all articles from all sections
+      else {
         this.sectionTitle = 'All Articles';
         this.section = undefined;
         this.sections = await get('sections').then((e) => e.reduce((a: any, v: any) => ({ ...a, [v.slug]: v }), {}));
       }
 
-      this.items = await ArticlesService.getAll(null, this.section);
+      this.items = await ArticlesService.getAll(null, this.section, issueNumber);
     },
   },
   watch: {

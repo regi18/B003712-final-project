@@ -8,15 +8,15 @@
     <p class="article-content">{{ removeMd(article.content) }}</p>
 
     <div class="tags">
-      <span class="tags-item" v-if="showSection">
+      <router-link :to="'/sections/' + article.section" class="tags-item" v-if="showSection">
         <i class="fa fa-folder"></i>
         <span>{{ getSectionTitle(article) }}</span>
-      </span>
+      </router-link>
 
-      <span class="tags-item">
+      <router-link :to="'/issues/' + article.issueNumber" class="tags-item">
         <i class="fa fa-tag"></i>
         <span>Issue No. {{ article.issueNumber }}</span>
-      </span>
+      </router-link>
     </div>
 
     <router-link :to="article.url" class="button">Read More</router-link>
@@ -56,6 +56,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+a:hover {
+  text-decoration: underline;
+}
+
 h2 {
   font-size: 30px;
   line-height: 0.8em;

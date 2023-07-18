@@ -74,6 +74,11 @@ const router = createRouter({
       component: () => import('../views/departments/TheResearchJournalView.vue'),
     },
     {
+      path: '/sections/all',
+      name: 'all-articles',
+      component: () => import('../views/departments/ArticlesView.vue'),
+    },
+    {
       path: '/sections/:section',
       name: 'general-section',
       component: () => import('../views/departments/ArticlesView.vue'),

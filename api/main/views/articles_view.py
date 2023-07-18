@@ -1,6 +1,8 @@
 from rest_framework import generics
 from main.models.article import Article
 from main.serializers.article import ArticleSerializer
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 
 class ArticlesView(generics.ListCreateAPIView):
@@ -29,3 +31,13 @@ class ArticlesView(generics.ListCreateAPIView):
 class ArticleDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
+
+
+@api_view(['GET'])
+def getIssueNumbers(response):
+    try:
+        items = Article.objects.order_by('issueNumber').values_list('issueNumber', flat=True).distinct()
+    except:
+        items = []
+
+    return Response(items)

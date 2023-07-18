@@ -6,7 +6,7 @@
       </button>
     </div>
 
-    <main>
+    <main v-if="items?.length > 0">
       <div class="list-item" v-for="(item, index) of items" :key="index">
         <div class="left">
           <span class="title">{{ item[titleKey] }}</span>
@@ -21,6 +21,10 @@
           </button>
         </div>
       </div>
+    </main>
+
+    <main style="padding: 1em" v-else>
+      Loading...
     </main>
   </div>
 

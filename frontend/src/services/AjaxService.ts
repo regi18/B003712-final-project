@@ -38,6 +38,11 @@ async function request(method: Methods, url: string, params?: Params, body?: Rec
 
   if (!res.ok) throw { status: res.status, statusText: res.statusText, errors: await res.json() };
   else if (res.status === 204) return {};
+  // In case of 401, e.g. 'Invalid Token.', remove the token and reload
+  else if (res.status === 401) {
+    localStorage.removeItem('token');
+    window.location.reload();
+  }
   else return res.json();
 }
 

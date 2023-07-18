@@ -100,10 +100,10 @@ export default {
     },
   },
   computed: {
-    isAllArticles() {
+    isAllArticles(): boolean {
       return this.$route.name === 'all-articles';
     },
-    filteredItems() {
+    filteredItems(): SummaryArticle[] {
       return this.items?.filter((i) => i.title.toLowerCase().includes(this.searchText.toLowerCase())) ?? [];
     },
   },

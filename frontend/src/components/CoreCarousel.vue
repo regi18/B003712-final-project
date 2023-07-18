@@ -47,7 +47,7 @@ export default {
     initSwipe() {
       this.$refs.carousel.childNodes.forEach((child: any) => {
         child.addEventListener('mousedown', this.handleMouseDown, true);
-        child.addEventListener('touchstart', (e) => this.handleMouseDown(e, true), true);
+        child.addEventListener('touchstart', (e: any) => this.handleMouseDown(e, true), true);
       });
 
       document.addEventListener('mouseup', this.handleMouseUp, true);
@@ -55,7 +55,7 @@ export default {
 
       document.addEventListener('touchend', this.handleMouseUp, true);
       document.addEventListener('touchcancel', this.handleMouseUp, true);
-      document.addEventListener('touchmove', (e) => this.handleMouseMove(e, true), { passive: false });
+      document.addEventListener('touchmove', (e: any) => this.handleMouseMove(e, true), { passive: false });
     },
     // Set starting point of swipe gesture
     handleMouseDown(e: any, isTouch = false) {

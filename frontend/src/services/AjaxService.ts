@@ -36,9 +36,13 @@ async function request(method: Methods, url: string, params?: Params, body?: Rec
 
   const res = await fetch(makeUrl(url, params), data);
 
-  // In case of 401, e.g. 'Invalid Token.', remove the token and reload
+  // In case of 401, remove any present token (it might be expired or unvalid)
   if (!res.ok && res.status === 401) {
     localStorage.removeItem('token');
+
+    // If 'Invalid Token.', also reload the page
+    const errors = await res.json();
+    if (errors?.detail === 'Invalid Token.') window.location.reload();
   }
 
   if (!res.ok) throw { status: res.status, statusText: res.statusText, errors: await res.json() };

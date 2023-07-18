@@ -6,6 +6,14 @@ import vue from '@vitejs/plugin-vue';
 // https://vitejs.dev/config/
 export default defineConfig({
   base: '/B003712-final-project/',
+  build: {
+    rollupOptions: {
+      input: {
+        main: './index.html',
+        notFound: './404.html',
+      }
+    }
+  },
   plugins: [vue()],
   resolve: {
     alias: {

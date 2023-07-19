@@ -6,10 +6,14 @@
 
     <hr />
 
+    <div class="search-bar">
+      <input type="search" v-model="searchText" placeholder="Search" />
+    </div>
+
     <p v-if="!items">Loading...</p>
 
     <div class="articles-wrapper" v-else>
-      <article class="article" v-for="item of items" :key="item.slug">
+      <article class="article" v-for="item of filteredItems" :key="item.slug">
         <h2>{{ item.title }}</h2>
         <div class="description">{{ makeSubtitle(item) }}</div>
 
@@ -32,12 +36,18 @@ export default {
     RouterLink,
   },
   created() {
-    TheResearchJournalService.getAll().then((res) =>  this.items = res);
+    TheResearchJournalService.getAll().then((res) => (this.items = res));
   },
   data() {
     return {
       items: null as Article[] | null,
+      searchText: '',
     };
+  },
+  computed: {
+    filteredItems(): Article[] {
+      return this.items?.filter((i) => i.title.toLowerCase().includes(this.searchText.toLowerCase())) ?? [];
+    },
   },
   methods: {
     removeMd(e: any) {
@@ -95,6 +105,22 @@ h2 {
   .button {
     font-size: 0.7rem;
     margin-top: 2em;
+  }
+}
+
+.search-bar {
+  display: flex;
+  gap: 1em;
+  margin-bottom: 1.5em;
+
+  input {
+    flex: 1;
+    font-size: 0.9em;
+    padding: 0 0.5em;
+  }
+  input[type=search]::-webkit-search-cancel-button {
+    -webkit-appearance: searchfield-cancel-button;
+    font-size: 0.9em;
   }
 }
 </style>

@@ -179,6 +179,7 @@ h1 {
   }
   input[type=search]::-webkit-search-cancel-button {
     -webkit-appearance: searchfield-cancel-button;
+    font-size: 0.9em;
   }
 
   button {

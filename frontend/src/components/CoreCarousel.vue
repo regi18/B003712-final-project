@@ -1,5 +1,5 @@
 <template>
-  <div class="carousel-track" id="carousel" ref="carousel">
+  <div class="carousel-track" id="carousel" ref="carousel" :style="{ 'min-height': minHeight + 'px' }">
     <template v-for="(c, i) in carouselCards" :key="i">
       <div class="carousel-card" :style="getStyle(i)">
         <h2>{{ c.title }}</h2>
@@ -24,7 +24,7 @@ export default {
   inject: ['currentScreenSize'],
   props: {
     carouselCards: {
-      type: Array as PropType<{ content: string; title: string; url: string; }[]>,
+      type: Array as PropType<{ content: string; title: string; url: string }[]>,
       required: true,
     },
   },
@@ -34,7 +34,13 @@ export default {
       swipeOffset: 0,
       baseSwipeOffset: 0,
       isSwiping: false,
+      minHeight: 300,
     };
+  },
+  mounted() {
+    this.$refs.carousel?.childNodes.forEach((child: any) => {
+      if (child.offsetHeight > this.minHeight) this.minHeight = child.offsetHeight;
+    });
   },
   methods: {
     // Style for a carousel card (x translation)
@@ -80,6 +86,15 @@ export default {
       // Otherwise reset the values (this achieves the "snap back"\"bounce" effect)
       else if (this.swipeOffset < limit) this.resetSwipe(0);
       else if (this.swipeOffset > -limit) this.resetSwipe(0);
+
+      // On each swipe adjust the height of the carousel track based on the heighest card
+      let m = 0;
+      this.$refs.carousel?.childNodes.forEach((child: any, index: number) => {
+        if (index > (this.activeCarouselIndex * this.carouselCardsPerSlide) && index <= ((this.activeCarouselIndex + 1) * this.carouselCardsPerSlide)) {
+          if (child.offsetHeight > m) m = child.offsetHeight;
+        }
+      });
+      this.minHeight = m;
     },
     // Track mouse/finger movement during swipe gesture
     handleMouseMove(event: any, isTouch = false) {
@@ -129,7 +144,7 @@ export default {
           this.initSwipe();
         });
       },
-      immediate: true
+      immediate: true,
     },
   },
 };
@@ -140,7 +155,7 @@ export default {
   display: flex;
   position: relative;
   max-width: 985px;
-  min-height: 300px;
+  // min-height: 300px;
   overflow: hidden;
   margin-bottom: 2em;
 

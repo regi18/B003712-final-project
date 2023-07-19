@@ -159,6 +159,8 @@ export default {
   overflow: hidden;
   margin-bottom: 2em;
 
+  transition: min-height 300ms;
+
   @include mobile {
     margin-bottom: 0.5em;
   }

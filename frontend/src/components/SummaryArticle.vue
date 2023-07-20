@@ -1,9 +1,9 @@
 <template>
   <article class="article">
-    <h2>{{ article.title }}</h2>
+    <router-link :to="article.url" class="title-link"><h2>{{ article.title }}</h2></router-link>
     <span class="subtitle">{{ article.subtitle }}</span>
 
-    <img :src="article.img" onerror="this.style.display='none'" />
+    <router-link :to="article.url" class="title-link"><img :src="article.img" onerror="this.style.display='none'" /></router-link>
 
     <p class="article-content">{{ removeMd(article.content) }}</p>
 
@@ -56,13 +56,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-a:hover {
+a:not(.title-link):hover {
   text-decoration: underline;
 }
 
 h2 {
   font-size: 30px;
-  line-height: 0.8em;
+  line-height: 1.2em;
   font-weight: 300;
   text-transform: none;
   text-align: left;

@@ -14,7 +14,7 @@
 
     <div class="articles-wrapper" v-else>
       <article class="article" v-for="item of filteredItems" :key="item.slug">
-        <h2>{{ item.title }}</h2>
+        <router-link :to="item.section + '/' + item.slug" class="title-link"><h2>{{ item.title }}</h2></router-link>
         <div class="description">{{ makeSubtitle(item) }}</div>
 
         <p>{{ removeMd(item.content) }}</p>

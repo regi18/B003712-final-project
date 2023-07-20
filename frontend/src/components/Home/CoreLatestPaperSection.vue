@@ -3,37 +3,19 @@
     <h2>Read the Latest Articles From Staff Members<br />–=≈=–</h2>
 
     <div class="article-wrapper">
-      <article v-for="a of articles" :key="a.url">
-        <header>
-          <h2>
-            <a>{{ a.title }}</a>
-          </h2>
-          <div class="description">{{ a.subtitle }}</div>
-        </header>
-
-        <figure v-if="!!a.img">
-          <img :src="a.img" :alt="a.title" onerror="this.style.display='none'" />
-        </figure>
-
-        <p>{{ removeMd(a.content) }}</p>
-
-        <div class="actions">
-          <router-link class="button" :to="a.url">Read More</router-link>
-        </div>
-      </article>
+      <SummaryArticle v-for="item of articles" :article="item" :key="item.slug" />
     </div>
   </section>
 </template>
 
 <script lang="ts">
 import ArticlesService, { type SummaryArticle } from '@/services/ArticlesService';
-import { RouterLink } from 'vue-router';
-import removeMd from 'remove-markdown';
+import SummaryArticleVue from '../SummaryArticle.vue';
 
 export default {
   name: 'core-latest-paper-section',
   components: {
-    RouterLink,
+    SummaryArticle: SummaryArticleVue,
   },
   created() {
     ArticlesService.getAll(4, 'staff-articles').then((res) => {
@@ -70,7 +52,8 @@ section.section-2 {
     grid-template-columns: repeat(10, 1fr);
     gap: 20px;
 
-    article {
+    // article {
+    :deep(article) {
       margin: 1.5em 0;
 
       @include articleLayout((7, 3, 5, 5));
@@ -83,43 +66,18 @@ section.section-2 {
         @include articleLayout((10, 10, 10, 10));
       }
 
-      header {
-        margin-bottom: 1em;
-
-        h2 {
-          text-align: left;
-        }
-
-        .description {
-          font-size: 65%;
-          color: rgba(0, 0, 0, 0.5);
-        }
+      h2 {
+        padding-top: 0;
       }
 
-      figure {
-        margin: 0 0 0.7em;
-        text-align: center;
-
-        img {
-          mix-blend-mode: darken;
-          max-width: 100%;
-        }
+      .subtitle {
+        font-size: 65%;
+        color: rgba(0, 0, 0, 0.5);
       }
 
       p {
         font-size: 65%;
         margin-bottom: 1em;
-      }
-
-      .actions {
-        display: flex;
-        justify-content: space-between;
-
-        .socials i {
-          color: #737373;
-          margin-right: 0.6em;
-          font-size: 0.6em;
-        }
       }
     }
   }

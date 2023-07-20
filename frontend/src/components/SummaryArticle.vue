@@ -1,9 +1,15 @@
 <template>
   <article class="article">
-    <router-link :to="article.url" class="title-link"><h2>{{ article.title }}</h2></router-link>
+    <router-link :to="article.url" class="title-link"
+      ><h2>{{ article.title }}</h2></router-link
+    >
     <span class="subtitle">{{ article.subtitle }}</span>
 
-    <router-link :to="article.url" class="title-link" v-if="showImage"><img :src="article.img" onerror="this.style.display='none'" /></router-link>
+    <router-link :to="article.url" class="title-link" v-if="showImage">
+      <figure v-if="article.img">
+        <img :src="article.img" :alt="article.title" onerror="this.style.display='none'" />
+      </figure>
+    </router-link>
 
     <p class="article-content">{{ removeMd(article.content) }}</p>
 
@@ -84,9 +90,15 @@ h2 {
   margin-top: -10px;
 }
 
-img {
-  mix-blend-mode: darken;
-  margin-top: 1em;
+figure {
+  margin: 0 0 0.7em;
+  text-align: center;
+
+  img {
+    margin-top: 1em;
+    mix-blend-mode: darken;
+    max-width: 100%;
+  }
 }
 
 p.article-content {

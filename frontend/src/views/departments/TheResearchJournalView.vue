@@ -13,39 +13,34 @@
     <p v-if="!items">Loading...</p>
 
     <div class="articles-wrapper" v-else>
-      <article class="article" v-for="item of filteredItems" :key="item.slug">
-        <router-link :to="item.section + '/' + item.slug" class="title-link"><h2>{{ item.title }}</h2></router-link>
-        <div class="description">{{ makeSubtitle(item) }}</div>
-
-        <p>{{ removeMd(item.content) }}</p>
-        <router-link :to="item.section + '/' + item.slug" class="button">Read More</router-link>
-      </article>
+      <SummaryArticle v-for="item of filteredItems" :article="item" :key="item.slug" :showImage="false"/>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import type { Article } from '@/services/ArticlesService';
+import type { Article, SummaryArticle } from '@/services/ArticlesService';
 import TheResearchJournalService from '@/services/TheResearchJournalService';
-import { RouterLink } from 'vue-router';
 import removeMd from 'remove-markdown';
+import SummaryArticleVue from '@/components/SummaryArticle.vue';
+
 
 export default {
   name: 'TheResearchJournalView',
   components: {
-    RouterLink,
+    SummaryArticle: SummaryArticleVue,
   },
   created() {
-    TheResearchJournalService.getAll().then((res) => (this.items = res));
+    TheResearchJournalService.getAll().then((res) => ( this.items = res ));
   },
   data() {
     return {
-      items: null as Article[] | null,
+      items: null as SummaryArticle[] | null,
       searchText: '',
     };
   },
   computed: {
-    filteredItems(): Article[] {
+    filteredItems(): SummaryArticle[] {
       return this.items?.filter((i) => i.title.toLowerCase().includes(this.searchText.toLowerCase())) ?? [];
     },
   },
@@ -63,7 +58,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-h2 {
+h2.title {
   font-size: 30px;
   line-height: 1.2em;
   font-weight: 300;
@@ -78,23 +73,14 @@ h2 {
   }
 }
 
-.description {
-  font-size: 65%;
-  color: rgba(0, 0, 0, 0.5);
-  margin-top: 5px;
-  margin-bottom: 20px;
-}
 
 .articles-wrapper {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 3em;
 
   @include mobile {
     grid-template-columns: 1fr;
-  }
-  @include tablet {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   p {

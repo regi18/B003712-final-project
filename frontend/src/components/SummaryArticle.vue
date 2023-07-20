@@ -3,7 +3,7 @@
     <router-link :to="article.url" class="title-link"><h2>{{ article.title }}</h2></router-link>
     <span class="subtitle">{{ article.subtitle }}</span>
 
-    <router-link :to="article.url" class="title-link"><img :src="article.img" onerror="this.style.display='none'" /></router-link>
+    <router-link :to="article.url" class="title-link" v-if="showImage"><img :src="article.img" onerror="this.style.display='none'" /></router-link>
 
     <p class="article-content">{{ removeMd(article.content) }}</p>
 
@@ -34,6 +34,10 @@ export default {
     article: {
       type: Object as PropType<SummaryArticle>,
       required: true,
+    },
+    showImage: {
+      type: Boolean,
+      default: true,
     },
     showSection: {
       type: Boolean,
@@ -67,6 +71,8 @@ h2 {
   text-transform: none;
   text-align: left;
   padding-top: 1em;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   @include mobile {
     font-size: 25px;

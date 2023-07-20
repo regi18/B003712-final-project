@@ -2,7 +2,7 @@
   <div class="carousel-track" id="carousel" ref="carousel" :style="{ 'min-height': minHeight + 'px' }">
     <template v-for="(c, i) in carouselCards" :key="i">
       <div class="carousel-card" :style="getStyle(i)">
-        <h2>{{ c.title }}</h2>
+        <router-link :to="c.url"><h2>{{ c.title }}</h2></router-link>
         <p>{{ c.content }}</p>
         <router-link class="button" :to="c.url">Read more</router-link>
       </div>

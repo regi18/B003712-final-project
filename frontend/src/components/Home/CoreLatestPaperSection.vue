@@ -49,7 +49,7 @@ section.section-2 {
 
     // article {
     :deep(article) {
-      margin: 1.5em 0;
+      margin-top: 1.5em;
 
       @include articleLayout((7, 3, 5, 5));
 

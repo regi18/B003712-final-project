@@ -19,9 +19,8 @@
 </template>
 
 <script lang="ts">
-import type { Article, SummaryArticle } from '@/services/ArticlesService';
+import type { SummaryArticle } from '@/services/ArticlesService';
 import TheResearchJournalService from '@/services/TheResearchJournalService';
-import removeMd from 'remove-markdown';
 import SummaryArticleVue from '@/components/SummaryArticle.vue';
 
 
@@ -42,16 +41,6 @@ export default {
   computed: {
     filteredItems(): SummaryArticle[] {
       return this.items?.filter((i) => i.title.toLowerCase().includes(this.searchText.toLowerCase())) ?? [];
-    },
-  },
-  methods: {
-    removeMd(e: any) {
-      return removeMd(e);
-    },
-    makeSubtitle(a: Article) {
-      if (!a) return '';
-      const d = Intl.DateTimeFormat('en-Us', { weekday: 'short', month: 'long', day: 'numeric' }).format(Date.parse(a.date));
-      return `${a.author} | ${d}`;
     },
   },
 };

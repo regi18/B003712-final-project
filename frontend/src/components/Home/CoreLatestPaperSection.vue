@@ -22,11 +22,6 @@ export default {
       this.articles = res;
     });
   },
-  methods: {
-    removeMd(e: any) {
-      return removeMd(e);
-    },
-  },
   data() {
     return {
       articles: null as SummaryArticle[] | null,

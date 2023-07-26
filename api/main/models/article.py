@@ -19,6 +19,8 @@ class Article(models.Model):
     issueNumber = models.IntegerField()
     # The section of the article
     section = models.ForeignKey(Section, on_delete=models.PROTECT)
+    # Whether the article is visible or not
+    visible = models.BooleanField(default=True)
 
     class Meta:
         ordering = ['-date']

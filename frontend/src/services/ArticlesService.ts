@@ -9,6 +9,7 @@ export interface Article {
   author: string;
   issueNumber: number;
   section: string;
+  visible: boolean;
 }
 
 export interface SummaryArticle extends Article {

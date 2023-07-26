@@ -25,6 +25,10 @@ class ArticlesView(generics.ListCreateAPIView):
             limit = int(self.request.query_params.get('limit'))
             queryset = queryset[:limit]
 
+        # Filter by visibility
+        if not self.request.query_params.get('showall'):
+            queryset = queryset.filter(visible=True)
+
         return queryset
 
 
@@ -32,11 +36,18 @@ class ArticleDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        # Filter by visibility
+        if not self.request.query_params.get('showall') and self.request.method == 'GET':
+            queryset = queryset.filter(visible=True)
+        return queryset
+
 
 @api_view(['GET'])
 def getIssueNumbers(response):
     try:
-        items = Article.objects.order_by('issueNumber').values_list('issueNumber', flat=True).distinct()
+        items = Article.objects.order_by('issueNumber').filter(visible=True).values_list('issueNumber', flat=True).distinct()
     except:
         items = []
 

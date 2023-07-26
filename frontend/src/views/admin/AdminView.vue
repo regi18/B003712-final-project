@@ -82,7 +82,7 @@ export default {
         const i = this.template.findIndex((e) => e.key === 'section');
         (this.template[i] as any).options = sections.map((e: any) => ({ key: e.slug, title: e.title }));
 
-        this.items = await get('articles');
+        this.items = await get('articles', { showall: 'yes' });
         this.titleKey = 'title';
       }
     },
@@ -92,7 +92,7 @@ export default {
     },
     async onSave(item: any) {
       // Reload
-      this.items = await get(this.section);
+      this.items = await get(this.section, { showall: 'yes' });
       
       // Reload second navbar
       if (this.section === 'sections') {
@@ -101,7 +101,7 @@ export default {
     },
     async onDelete(item: any) {
       // Reload
-      this.items = await get(this.section);
+      this.items = await get(this.section, { showall: 'yes' });
 
       // Reload second navbar
       if (this.section === 'sections') {

@@ -41,6 +41,11 @@ export default {
       required: true,
     },
     {
+      title: 'Visible',
+      key: 'visible',
+      type: 'checkbox',
+    },
+    {
       title: 'Image',
       key: 'img',
       type: 'file',

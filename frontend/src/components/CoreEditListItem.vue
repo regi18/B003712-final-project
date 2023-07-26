@@ -28,8 +28,8 @@
           :disabled="!editItem?.isNew && (t.key === 'slug' || t.key === 'id')"
         />
 
-        <!-- Number -->
-        <input type="number" :id="t.key" v-model="editItem[t.key]" v-if="t.type === 'number'" />
+        <!-- Number or Checkbox -->
+        <input :type="t.type" :id="t.key" v-model="editItem[t.key]" v-if="t.type === 'number' || t.type === 'checkbox'" />
 
         <!-- Textarea -->
         <!-- <textarea id="content" rows="10" v-model="editItem[t.key]" v-else-if="t.type === 'textarea'"></textarea> -->
@@ -163,6 +163,11 @@ main {
 
     select, input {
       width: 100%;
+    }
+
+    input[type="checkbox"] {
+      width: 0.7em;
+      height: 0.7em;
     }
   }
 }

@@ -8,7 +8,7 @@ interface CoreEditorTemplateItemBase {
 }
 
 interface CoreEditorTemplateItemInput extends CoreEditorTemplateItemBase {
-    type: 'input' | 'number' | 'textarea';
+    type: 'input' | 'number' | 'textarea' | 'checkbox';
 }
 
 interface CoreEditorTemplateItemFile extends CoreEditorTemplateItemBase {

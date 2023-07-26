@@ -19,15 +19,15 @@ class ArticlesView(generics.ListCreateAPIView):
         # Filter by issueNumber
         if self.request.query_params.get('issueNumber'):
             queryset = queryset.filter(issueNumber=self.request.query_params.get('issueNumber'))
+
+        # Filter by visibility
+        if not self.request.query_params.get('showall'):
+            queryset = queryset.filter(visible=True)
         
         # Limit the number of results
         if self.request.query_params.get('limit'):
             limit = int(self.request.query_params.get('limit'))
             queryset = queryset[:limit]
-
-        # Filter by visibility
-        if not self.request.query_params.get('showall'):
-            queryset = queryset.filter(visible=True)
 
         return queryset
 

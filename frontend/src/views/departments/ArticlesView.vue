@@ -95,7 +95,7 @@ export default {
       this.items = await ArticlesService.getAll(null, this.section, this.issueNumber);
     },
     onSearch(e: any) {
-      console.log(this.searchText);
+      // console.log(this.searchText);
       // this.items = ArticlesService.search(e.target.value, this.items);
     },
   },

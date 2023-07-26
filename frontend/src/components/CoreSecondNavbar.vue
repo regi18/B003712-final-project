@@ -13,7 +13,7 @@
           <router-link :to="e.url" @click="isMobileMenuOpen = false">{{ e.title }}</router-link>
         </li>
 
-        <li class="menu-item">
+        <!-- <li class="menu-item">
           <a @click="toggleSubMenu($event)">
             Other Departments
             <i ref="topNavSubMenuArrow" class="fas fa-angle-down arrow-down"></i>
@@ -24,7 +24,7 @@
               <router-link :to="c.url" @click="isMobileMenuOpen = false">{{ c.title }}</router-link>
             </li>
           </ul>
-        </li>
+        </li> -->
       </ul>
     </div>
   </nav>
@@ -47,14 +47,13 @@ export default {
     s = s.sort((a: any, b: any) => a.title.localeCompare(b.title));
 
     // Divide sections in menu and submenu
-    this.otherItems = [...s.filter((e: any) => !['staff-articles', 'the-research-journal'].includes(e.slug)), ...this.otherItems];
-    this.menuItems = [...s.filter((e: any) => ['staff-articles', 'the-research-journal'].includes(e.slug)), ...this.menuItems];
+    this.menuItems = [...s, ...this.menuItems];
   },
   data() {
     return {
       isMobileMenuOpen: false,
-      otherItems: [{ url: '/sections/all', title: 'All Articles' }],
-      menuItems: [{ url: '/sections/non-political-cartoons', title: 'Non-Political Cartoons' }],
+      // Non political cartoons is static since it's completely different from the rest
+      menuItems: [{ url: '/sections/non-political-cartoons', title: 'Non-Political Cartoons' }, { url: '/sections/all', title: 'All Articles' }],
     };
   },
   methods: {

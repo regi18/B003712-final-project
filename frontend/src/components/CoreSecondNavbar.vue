@@ -40,23 +40,28 @@ export default {
   components: {
     RouterLink,
   },
-  async created() {
-    // Fetch sections from API and sort them alphabetically
-    let s: any[] = await get('sections');
-    s = s.map((e: any) => ({ ...e, url: '/sections/' + e.slug }));
-    s = s.sort((a: any, b: any) => a.title.localeCompare(b.title));
-
-    // Divide sections in menu and submenu
-    this.menuItems = [...s, ...this.menuItems];
+  created() {
+    this.load();
+    window.addEventListener("UpdateSecondNavbarEvent", this.load);
+  },
+  beforeUnmount() {
+    window.removeEventListener("UpdateSecondNavbarEvent", this.load);
   },
   data() {
     return {
       isMobileMenuOpen: false,
       // Non political cartoons is static since it's completely different from the rest
-      menuItems: [{ url: '/sections/non-political-cartoons', title: 'Non-Political Cartoons' }, { url: '/sections/all', title: 'All Articles' }],
+      baseMenuItems: [{ url: '/sections/non-political-cartoons', title: 'Non-Political Cartoons' }, { url: '/sections/all', title: 'All Articles' }],
+      menuItems: [] as any[],
     };
   },
   methods: {
+    async load() {
+      // Fetch sections from API
+      let s: any[] = await get('sections');
+      s = s.map((e: any) => ({ ...e, url: '/sections/' + e.slug }));
+      this.menuItems = [...s, ...this.baseMenuItems];
+    },
     toggleSubMenu(event: any) {
       event.preventDefault();
       if (this.currentScreenSize !== 'mobile') return;

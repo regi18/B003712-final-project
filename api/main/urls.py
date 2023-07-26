@@ -13,6 +13,7 @@ urlpatterns = [
     path('downloads/<int:pk>/', downloads_view.DownloadDetailView.as_view()),
 
     path('sections/', sections_view.SectionsView.as_view()),
+    path('sections/order/', sections_view.updateOrder),
     path('sections/<pk>/', sections_view.SectionDetailView.as_view()),
 
     path('cartoons/', cartoons_view.CartoonsView.as_view()),

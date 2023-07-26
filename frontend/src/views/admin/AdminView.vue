@@ -28,9 +28,12 @@
         :titleKey="titleKey"
         :items="items"
         @saveItem="onSave($event)"
+        @onDrop="onDrop()"
         @deleteItem="onDelete($event)"
         @error="onError($event)"
         :apiBaseUrl="section"
+        :dragAndDrop="section === 'sections'"
+        :headerMsg="section === 'sections' ? 'Drag and drop to reorder' : undefined"
       ></CoreCrudList>
     </div>
   </div>
@@ -50,6 +53,8 @@ export default {
   },
   created() {
     this.setSection('articles');
+
+    this.updateSecondNavbarEvent = new Event("UpdateSecondNavbarEvent", {"bubbles":true, "cancelable":false});
   },
   methods: {
     async setSection(section: string) {
@@ -60,15 +65,18 @@ export default {
         this.template = templates.cartoon;
         this.items = await get('cartoons');
         this.titleKey = 'title';
-      } else if (this.section === 'downloads') {
+      }
+      else if (this.section === 'downloads') {
         this.template = templates.paperIssue;
         this.items = await get('downloads');
         this.titleKey = 'issueNumber';
-      } else if (this.section === 'sections') {
+      }
+       else if (this.section === 'sections') {
         this.template = templates.section;
         this.items = await get('sections');
         this.titleKey = 'title';
-      } else if (this.section === 'articles') {
+      } 
+      else if (this.section === 'articles') {
         this.template = templates.article;
         const sections = await get('sections');
         const i = this.template.findIndex((e) => e.key === 'section');
@@ -78,13 +86,27 @@ export default {
         this.titleKey = 'title';
       }
     },
+    onDrop() {
+      // Reload second navbar
+      document.dispatchEvent(this.updateSecondNavbarEvent);
+    },
     async onSave(item: any) {
       // Reload
       this.items = await get(this.section);
+      
+      // Reload second navbar
+      if (this.section === 'sections') {
+        document.dispatchEvent(this.updateSecondNavbarEvent);
+      }
     },
     async onDelete(item: any) {
       // Reload
       this.items = await get(this.section);
+
+      // Reload second navbar
+      if (this.section === 'sections') {
+        document.dispatchEvent(this.updateSecondNavbarEvent);
+      }
     },
     onError(errors: Record<string, string[]>) {
       this.errors = [];
@@ -111,6 +133,7 @@ export default {
       template: {} as CoreEditorTemplateItem[],
       items: [] as any[],
       errors: null as string[] | null,
+      updateSecondNavbarEvent: null as any,
     };
   },
 };

@@ -12,7 +12,7 @@
           Here you can download the latest issue of the Gazette.<br />
           It puts together all the best articles from the last month ({{ dateNoDay }}).<br />
           To download this issue of our paper, <a class="click-here" :href="url" target="_blank">click here</a> or on the image.<br />
-          To download older papers, explore our <a class="click-here" href="/archives">archive</a>.
+          To download older papers, explore our <router-link class="click-here" to="/archives">archive</router-link>.
         </p>
         <a :href="url" target="_blank">
           <img src="@/assets/img/front-page.png" alt="Gazette Front Page" />
@@ -28,9 +28,13 @@
 
 <script lang="ts">
 import ArticlesService from '@/services/ArticlesService';
+import { RouterLink } from 'vue-router';
 
 export default {
   name: 'core-download-latest-paper-section',
+  components: {
+    RouterLink,
+  },
   created() {
     this.loaded = false;
     ArticlesService.getLatestDownload().then((res) => {
